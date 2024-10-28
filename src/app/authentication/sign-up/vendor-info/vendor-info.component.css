@@ -1,0 +1,156 @@
+.enabled {
+    background: var(--primary-blue-color);
+}
+
+.disabled {
+    background: var(--primary-disabled-color);
+    cursor: no-drop;
+
+}
+
+
+.input_text_field {
+    margin: 6px 0px;
+
+}
+.input__full{
+    margin-top: 13px;
+}
+.col{
+    width: 48%;
+}
+
+.row {  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.form__container {
+    width: 90%;
+}
+
+.form__title {
+    margin: 20px 0px;
+}
+
+.form__title h2 {
+    font-size: 25px;
+    font-weight: 500;
+    color: var(--primary-blue-color);
+}
+
+.p-input-icon-left {
+    width: 100%;
+}
+
+.m-top {
+    margin-top: 30px;
+}
+
+.registration__section {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 0px;
+    width: 100%;
+}
+
+.register_tag {
+    padding-left: 5px;
+    cursor: pointer;
+    text-decoration: dashed;
+    color: var(--primary-blue-color);
+}
+
+::ng-deep.p-inputtext {
+    padding-left: 2.5rem;
+}
+
+::ng-deep.p-password {
+    width: 100%;
+}
+
+::ng-deep.p-inputtext {
+    width: 100%;
+}
+
+::ng-deep.p-dropdown {
+    width: 100%;
+}
+
+::ng-deep.p-steps .p-steps-item .p-menuitem-link {
+    background: rgba(255, 255, 255, 0);
+}
+
+::ng-deep.p-dropdown .p-dropdown-label.p-placeholder {
+    font-weight: 400;
+    padding-left: 16px;
+
+}
+
+.step__form {
+    width: 100%;
+    margin: 32px 0px;
+}
+
+.p-input-icon-left>.p-inputtext {
+    padding-left: 2.5rem;
+}
+
+.p-input-icon-right>.p-inputtext {
+    padding-right: 2.5rem;
+}
+
+.radio__btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px 10px 10px 0px;
+    border: 2px solid var(--primary-blue-color);
+    background-color: var(--white-color);
+    padding: 10px 20px;
+    border-radius: 10px;
+
+
+}
+
+.radio__section{
+    display: flex;
+    align-items: start;
+}
+label{
+    margin: 0px !important;
+    margin-left: 5px !important;
+}
+
+.map__btn{
+    background: var(--white-color);
+    border: 3px solid var(--primary-blue-color);
+    padding: 7px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.map__div{
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 0px;
+    
+}
+
+.bxs-map-pin{
+    margin-right: 9px;
+    color: var(--primary-blue-color);
+    font-size: 18px;
+}
+
+.map_geographical__div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    margin: 20px auto;
+}

@@ -1,0 +1,126 @@
+<div class="main__container">
+  <div class="login__container">
+    <div class="wrap__login__container">
+      <div class="login__form__section">
+        <div class="login__logo__section">
+          <img src="../../../assets/img/dental-logo.png" />
+          <button routerLink="../signup" class="register__btn">Register</button>
+        </div>
+
+        <div [@slideInOut] class="form__container">
+          <div class="form__title">
+            <h2>Login</h2>
+          </div>
+
+          <form [formGroup]="loginForm" (ngSubmit)="handleloginForm()">
+            <div class="input_text_field">
+              <label class="label">Select a Role *</label>
+              <div class="p-input-icon-left p-input-icon-right">
+                <p-dropdown
+                  class="slot__dropdown"
+                  [options]="rolesList"
+                  formControlName="roleId"
+                  [(ngModel)]="roleModel"
+                  optionLabel="Role"
+                  [filter]="true"
+                  filterBy="Role"
+                >
+                  <ng-template pTemplate="selectedItem">
+                    <div
+                      class="flex align-items-center gap-2"
+                      *ngIf="roleModel"
+                    >
+                      <div>{{ roleModel.Role }}</div>
+                    </div>
+                  </ng-template>
+                  <ng-template let-roles pTemplate="item">
+                    <div class="flex align-items-center gap-2">
+                      <div>{{ roles.Role }}</div>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+              </div>
+            </div>
+
+            <div class="input_text_field">
+              <label class="label">Enter Email *</label>
+              <div class="p-input-icon-left p-input-icon-right">
+                <i class="bx bx-mail-send" style="color: #6c7689"></i>
+                <input type="text" pInputText formControlName="userEmail" />
+                <i
+                  [ngClass]="
+                    loginForm.get('userEmail')?.hasError('required') ||
+                    loginForm.get('userEmail')?.hasError('email')
+                      ? 'fas fa-asterisk'
+                      : 'fas fa-check'
+                  "
+                ></i>
+              </div>
+              <small
+                *ngIf="loginForm.get('userEmail')?.hasError('email')"
+                id="username-help"
+                >Email Pattern Required</small
+              >
+            </div>
+
+            <div class="input_text_field">
+              <label class="label">Enter Password *</label>
+              <div class="p-input-icon-left p-input-icon-right">
+                <i class="bx bx-lock" style="color: #6c7689"></i>
+                <input
+                  #myInput
+                  [type]="isPassword ? 'password' : 'text'"
+                  pInputText
+                  formControlName="password"
+                />
+                <i
+                  (click)="handleView()"
+                  [ngClass]="isPassword ? 'bx bxs-hide' : 'bx bxs-show'"
+                ></i>
+                <i
+                  [ngClass]="
+                    loginForm.get('password')?.hasError('pattern')
+                      ? 'fas fa-asterisk'
+                      : 'fas fa-check'
+                  "
+                ></i>
+              </div>
+            </div>
+
+            <div class="registration__section">
+              <a (click)="ForgetPassword()" class="register_tag"
+                >Forget Password</a
+              >
+            </div>
+
+            <div class="m-top">
+              <button
+                class="login__btn"
+                [disabled]="loginForm.invalid"
+                class="login__btn"
+                [ngClass]="loginForm.invalid ? 'disabled' : 'enabled'"
+              >
+                <span *ngIf="isLoading" class="spinner"></span>
+                Login
+              </button>
+
+              <div class="registration__section">
+                <p>Don't have an account?</p>
+                <a routerLink="../signup" class="register_tag">Signup</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div [@slideInLeft] class="login__image">
+        <div class="image__section">
+          <div class="box"></div>
+          <img src="../../../assets/img/dental-login-image.png" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-toast></p-toast>

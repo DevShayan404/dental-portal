@@ -1,0 +1,16 @@
+.expension{
+    margin-top: 5px;  
+}
+
+mat-expansion-panel-header{
+    background-color:#f2faff ;
+    transition: background-color 0.5s ease;
+    border-left:5px solid #9ad4f8;
+    
+}
+
+mat-expansion-panel-header:hover{
+    background-color:#dff0fb!important ;
+}
+
+

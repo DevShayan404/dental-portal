@@ -1,0 +1,98 @@
+<div class="card mb-5">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="back__icon" (click)="backToDoctorListPage()" pTooltip="Back to Vendor">
+            <i class="pi pi-angle-double-left"></i>
+        </div>
+        <h2 *ngIf="doctorName">All Services by {{doctorName}}</h2>
+        <button class="btn" (click)="handleAddEditVendorServiceDoctor(0)">
+            <i class='bx bx-plus-circle'></i>
+            Add New
+        </button>
+    </div>
+    <div style="min-height: 400px; max-height: 700px; overflow-y: scroll" >
+        <div class="card-body" >
+
+            <div class="input__field">
+                <mat-form-field>
+                    <mat-label>Search Service</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Service Name" #input>
+                </mat-form-field>
+            </div>
+
+            <div class="mat-elevation-z8 table">
+
+                <div *ngIf="isLoading" >
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                    <app-skeleton ></app-skeleton>
+                </div>
+
+                <table *ngIf="!isLoading"  mat-table [dataSource]="dataSource">
+
+                    <ng-container matColumnDef="Name">
+                        <th class="table__head" mat-header-cell *matHeaderCellDef >Name</th>
+                        <td class="table_section" mat-cell *matCellDef="let row">{{row?.Name}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Fees">
+                        <th class="table__head" mat-header-cell *matHeaderCellDef >Fees</th>
+                        <td class="table_section" mat-cell *matCellDef="let row">{{row?.Fees}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Discount">
+                        <th class="table__head" mat-header-cell *matHeaderCellDef >Discount</th>
+                        <td class="table_section" mat-cell *matCellDef="let row">{{row?.Discount}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="FixedPercentage">
+                        <th class="table__head" mat-header-cell *matHeaderCellDef >FixedPercentage </th>
+                        <td class="table_section" mat-cell *matCellDef="let row">{{row?.FixedPercentage}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Actions">
+                        <th class="table__head" mat-header-cell *matHeaderCellDef>Actions</th>
+                        <td class="table_section" mat-cell *matCellDef="let row">
+                            <div class="mat__input">
+                                <button class="btn edit_btn" (click)="handleAddEditVendorServiceDoctor(row)">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn delete_btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+</div>
+
+<ng-template #loading>
+    <div class="not__found">
+        <img src="../../../../../assets/img/loader.gif" alt="not found"/>
+        <div class="not-found__text">
+            <h1 >Loading...</h1>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #notFound>
+    <div class="not__found">
+        <img src="../../../../../assets/img/not-found.jpg" alt="not found"/>
+        <div class="not-found__text">
+            <h1>Data Not Found</h1>
+        </div>
+    </div>
+</ng-template>
+
+
+<p-toast></p-toast>

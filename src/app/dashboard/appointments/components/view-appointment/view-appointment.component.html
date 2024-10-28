@@ -1,0 +1,333 @@
+
+<div>
+    <div class="dropdown__section">
+
+        <div class="admin__filter" *appHasRole="adminRole">
+                <div class="filters">
+                    <div>
+                        <p-dropdown class="slot__dropdown" (onChange)="changeCityForHospitals($event.value)"
+                            [options]="CitiesList" [(ngModel)]="cityModel" optionLabel="Name" [filter]="true"
+                            filterBy="Name" placeholder="Select a City">
+                            <ng-template pTemplate="selectedItem">
+                                <div class="flex align-items-center gap-2" *ngIf="cityModel">
+                                    <div>{{ cityModel.Name }}</div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-country pTemplate="item">
+                                <div class="flex align-items-center gap-2">
+                                    <div>{{ country.Name }}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+
+                    <div>
+                        <p-dropdown class="slot__dropdown" [disabled]="enableHospitalItem"
+                            (onChange)="changeHospitalForDoctor($event.value)" [options]="vendorsListByCity"
+                            placeholder="Select a Hospital" [(ngModel)]="doctorVendorModel"
+                            optionLabel="BusinessName" [filter]="true" filterBy="BusinessName">
+                            <ng-template pTemplate="selectedItem">
+                                <div class="flex align-items-center gap-2" *ngIf="doctorVendorModel">
+                                    <div>{{ doctorVendorModel.BusinessName }}</div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-hospital pTemplate="item">
+                                <div class="flex align-items-center gap-2">
+                                    <div>{{ hospital.BusinessName }}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+
+                    <div>
+                        <p-dropdown class="slot__dropdown" [disabled]="enableDoctorItem" [options]="doctorsList"
+                            [(ngModel)]="doctorModel" optionLabel="fullName" [filter]="true" filterBy="fullName"
+                            placeholder="Select a Doctor">
+                            <ng-template pTemplate="selectedItem">
+                                <div class="flex align-items-center gap-2" *ngIf="doctorModel">
+                                    <div>{{ doctorModel.fullName }}</div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-doctor pTemplate="item">
+                                <div class="flex align-items-center gap-2">
+                                    <div>{{ doctor.fullName }}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                </div>
+
+            <!-- <button class="btn search_icon" (click)="handleSlotsFilterByAdmin()">
+                <i class='bx bx-search-alt-2'></i>
+                Search</button> -->
+                <button mat-raised-button style="padding: 23px;" (click)="handleSlotsFilterByAdmin()">
+                    <i class='bx bx-search-alt-2'></i>
+                    Search Appointment</button>
+        </div>
+
+        <div class="admin__filter" *appHasRole="operationRole">
+            <div class="filters">
+                <div>
+                    <p-dropdown class="slot__dropdown" (onChange)="changeCityForHospitals($event.value)"
+                        [options]="CitiesList" [(ngModel)]="cityModel" optionLabel="Name" [filter]="true"
+                        filterBy="Name" placeholder="Select a City">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="flex align-items-center gap-2" *ngIf="cityModel">
+                                <div>{{ cityModel.Name }}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-country pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                <div>{{ country.Name }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+
+                <div>
+                    <p-dropdown class="slot__dropdown" [disabled]="enableHospitalItem"
+                        (onChange)="changeHospitalForDoctor($event.value)" [options]="vendorsListByCity"
+                        placeholder="Select a Hospital" [(ngModel)]="doctorVendorModel"
+                        optionLabel="BusinessName" [filter]="true" filterBy="BusinessName">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="flex align-items-center gap-2" *ngIf="doctorVendorModel">
+                                <div>{{ doctorVendorModel.BusinessName }}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-hospital pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                <div>{{ hospital.BusinessName }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+
+                <div>
+                    <p-dropdown class="slot__dropdown" [disabled]="enableDoctorItem" [options]="doctorsList"
+                        [(ngModel)]="doctorModel" optionLabel="fullName" [filter]="true" filterBy="fullName"
+                        placeholder="Select a Doctor">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="flex align-items-center gap-2" *ngIf="doctorModel">
+                                <div>{{ doctorModel.fullName }}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-doctor pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                <div>{{ doctor.fullName }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+            </div>
+
+
+        <button mat-raised-button style="padding: 23px;" (click)="handleSlotsFilterByAdmin()">
+            <i class='bx bx-search-alt-2'></i>
+            Search Appointment</button>
+    </div>
+
+        <div class="admin__filter" *appHasRole="hospitalRole">
+            <div class="filters__doctor">
+                <div class="filters">
+                    <div>
+                        <p-dropdown class="search__dropdown" (onChange)="handleVendorsForCalendar($event.value)" [options]="doctorsList" placeholder="Select a Doctor"
+                        [(ngModel)]="doctorModel" optionLabel="fullName" [filter]="true" filterBy="fullName">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="flex align-items-center gap-2" *ngIf="doctorModel">
+                                <div>{{ doctorModel.fullName }}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-doctor pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                <div>{{ doctor.fullName }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <button class="btn search_icon" (click)="handleSlotsFilterByHospitalAdmin()">
+                <i class='bx bx-search-alt-2'></i>
+                Search</button> -->
+        </div>
+
+        <!-- <h2 *ngIf="vendorDoctorList" class="booked__title">Booked Patients from {{bookedPatientTitle ??
+            vendorDoctorList[0]?.BusinessName }}
+        </h2> -->
+
+    </div>
+   
+    <div *ngIf="showAllOptions == true"  class="tabOption">
+       <div (click)="OnclickTableoption()" [ngClass]="{ OnActiveTableoption: ShowTable == true }" class="tableoption"><i class="bi bi-table"></i></div>
+       <div (click)="OnclickCalenderoption()" [ngClass]="{ OnActiveTableoption: ShowCalender == true }" class="Calenderoption"><i class="bi bi-calendar-check"></i></div>
+    </div>
+<div class="dateTab"  *ngIf="ShowTable == true">
+   <div *ngFor="let date of calendarData; index as Cindex">
+<div (click)="handleAppointments(date?.Time )"  (click)="BusinessOnTabClick(Cindex)" [ngClass]="{ active: CalenderTabIndex === Cindex }" class="tab">{{date.Time | date}}</div>
+   </div>
+</div>
+
+<mat-card style="margin-top: 5px;" *ngIf="ShowTable == true">
+    <table  class="table table-response">
+        <thead>
+            <tr>
+<th>Patient Name</th>
+<th>Patient PhoneNumber</th>
+<th>Patient Relation</th>
+<th>Appointment</th>
+<th>Appointment Status</th>
+<th>Created By</th>
+<th>Created On</th>
+<th>InitialFees</th>
+<th>Action</th>
+</tr>
+        </thead>
+        <tbody>
+<tr *ngFor="let item of bookedPatientList">
+    <td>{{item.Patient.Name}}</td>
+    <td>{{item.Patient.PhoneNumber}}</td> 
+    <td>{{item.Patient.Relation}}</td>
+    <td>{{item.Appointment | date}}</td>
+    <td>{{item.AppointmentStatus.AppointmentStatusName}}</td>
+    <td>{{item.CreatedBy}}</td>
+    <td>{{item.CreatedOn | date}}</td>
+    <td>{{item.InitialFees}}$</td>
+    <td class="EditClass"><i (click)="handleStatusChange(item)"   class="bi bi-pencil-square"></i></td>
+   
+    <!-- <td>{{item.Patient.PhoneNumber}}</td> -->
+</tr>
+
+<!-- <tr class="totalRow">
+   <td colspan="6" style="font-weight: 500;font-size: 14px;">Total Ledger Amount</td>
+   <td style="font-weight: 500;font-size: 14px;">{{showTotalLedger}}$</td>
+</tr> -->
+        </tbody>
+
+    </table>
+            </mat-card>
+
+
+
+    <p-calendar  *ngIf="!isLoading && ShowCalender == true" (onMonthChange)="handleMonthForCalendar($event)" (onSelect)="handleFunction($event)"
+        [(ngModel)]="date" [inline]="true" [showWeek]="true" class="calendar" [showOtherMonths]="true">
+        <ng-template pTemplate="date" let-day>
+            <div class="calendar__div">
+                <h6>{{ day.day }}</h6>
+                <div *ngFor="let item of calendarData">
+                    <div
+                        *ngIf="day?.day === +(item?.Day) && day?.month + 1 === +(item?.Month) && day?.year === +(item?.Year)">
+                        <div class="appointment__list" (click)="handleAppointments(item?.Time)" type="button"
+                            cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+                            <h6>Appointments count: {{item?.Count}}</h6>
+                        </div>
+                        <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger"
+                            [cdkConnectedOverlayOpen]="patientAvailableToggle === item?.Time">
+
+                            <div class="patient-list">
+                                <div class="cross_btn">
+                                    <button class="btn edit_btn btn__margin"
+                                        (click)="patientAvailableToggle = undefined">x</button>
+                                </div>
+
+                                <div class="patient__div" *ngFor="let patientItem of bookedPatientList">
+                                    <div class="patient__info">
+                                        <p class="patient">Patient Name: <strong
+                                                class="patient_title">{{patientItem?.Patient?.Name}}</strong></p>
+                                        <p class="patient">Patient Status: <strong
+                                                class="patient_title">{{patientItem?.AppointmentStatus?.AppointmentStatusName}}</strong>
+                                        </p>
+                                        <p class="patient">Patient Time:<strong class="patient_title">
+                                                {{patientItem?.Appointment | date : 'medium'}}</strong> </p>
+                                        <div class="patient__update">
+                                            <div class="patient__status">
+                                                <p class="patient">Patient Visit Status:<strong
+                                                        [ngClass]="patientItem?.VisitStatus === 1 ? 'Done' : 'Pending'">
+                                                        {{patientItem?.VisitStatus === 1 ? 'Visited' :
+                                                        'Not-Visited'}}</strong>
+                                                </p>
+                                            </div>
+                                            <button class="btn btn_icon" (click)="handleStatusChange(patientItem)">
+                                                <i class='bx bx-edit-alt'></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-calendar>
+
+</div>
+
+<p-toast></p-toast>
+
+<div *ngIf="isLoading">
+    <div class="not__found">
+        <img src="../../../../../assets/img/loader.gif" alt="not found" />
+        <div class="not-found__text">
+            <h1>Loading...</h1>
+        </div>
+    </div>
+</div>
+
+
+<p-dialog header="Update Patient Details" [(visible)]="visible" [style]="{width: '50vw', height: '30vw'}" [modal]="true"
+    [draggable]="false" [resizable]="false">
+    <div class="patient__container">
+        <div class="patient_input">
+            <div class="patient__detail">
+                <label class="label">Select a Status *</label>
+                <p-dropdown class="search__dropdown" [options]="visitedStatusList" [(ngModel)]="visitedStatusModel"
+                    optionLabel="name" [filter]="true" filterBy="name">
+                    <ng-template pTemplate="selectedItem">
+                        <div class="flex align-items-center gap-2" *ngIf="visitedStatusModel">
+                            <div>{{ visitedStatusModel.name }}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-visitedStatus pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            <div>{{ visitedStatus.name }}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+
+            <div class="patient__detail">
+                <label class="label">Enter Fees *</label>
+                <div class="input_text_field">
+                    <div class="p-input-icon-left p-input-icon-right">
+                        <!-- <span><i class='bx bxs-badge-dollar ' style="color: #6c7689;"></i></span> -->
+                        <input placeholder="Enter Fees *" type="text" pInputText [(ngModel)]="feesModel" type="number" />
+                        <!-- <i [ngClass]="validateControls('fees', 'required') || validateControls('fees', 'pattern') ? 'fas fa-asterisk' : 'fas fa-check'"></i> -->
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="patient__detail">
+                <label class="label">Write about us *</label>
+                <div class="input_text_field">
+                    <div class="p-input-icon-left p-input-icon-right">
+                        <!-- <i class="bx bx-mail-send" style="color: #6c7689;"></i> -->
+                        <textarea rows="2" cols="30" pInputTextarea [(ngModel)]="remarksModel"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="input__full" *ngIf="isUpdateHospital">
+                <div class="input_text_field">
+                    
+                </div>
+            </div> -->
+        </div>
+
+        <div class="patient__btn">
+            <button class="btn btn_icon" (click)="handleUpdatePatientDetails()">
+                <i class='bx bxs-edit-alt'></i>
+                Update</button>
+        </div>
+    </div>
+</p-dialog>

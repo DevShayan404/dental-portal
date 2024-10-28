@@ -1,0 +1,29 @@
+<div class="main__container">
+    <div class="login__container">
+        <div class="wrap__login__container">
+
+            <div class="login__form__section">
+                <div class="login__logo__section">
+                    <img src="../../../assets/img/dental-logo.png" />
+                    <button routerLink="../login" class="register__btn">Login</button>
+                </div>
+
+                <!-- <p-steps class="step__form" [model]="items" [readonly]="true"></p-steps> -->
+                <div class="form__container">
+                    <div class="form__title">
+                        <h2>Sign up</h2>
+                    </div>
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+            <div [@slideInOut] class="login__image">
+                <div class="image__section">
+                    <div class="box"></div>
+                    <img src="../../../assets/img/dental-login-image.png" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-toast></p-toast>

@@ -1,0 +1,63 @@
+
+
+
+.form-field{
+    width: 100%;
+}
+
+.table{
+    width: 100%;
+ 
+  }
+  
+  .TableCard{
+    max-height: 450px;
+    overflow: auto;  
+  }
+
+  .table tr td{
+    text-align: center;
+    font-size: 12px;
+  
+     }
+     .table tr th{
+        text-align: center;
+        position: sticky;
+        background-color: white;
+        color: rgb(74, 74, 74);
+        font-size: 12px;
+        top: 0px;
+     
+      
+         }
+         .table thead{
+            border-bottom: 1px solid black;
+         }
+  
+         .totalRow{
+            position: sticky;
+            background-color: white;
+            bottom: 0;
+         }
+  
+         .EditClass i{
+          font-size: 16px;
+          cursor: pointer;
+         }
+  
+         .EditClass i:hover{
+          font-size: 16px;
+          color: #007fdf;
+         }
+
+       
+         .DeleteClass i{
+            margin-left: 10px;
+            font-size: 16px;
+            cursor: pointer;
+           }
+    
+           .DeleteClass i:hover{
+            font-size: 16px;
+            color: #740000;
+           }

@@ -1,0 +1,130 @@
+
+.table{
+    width: 100%;
+ 
+  }
+  
+  .TableCard{
+    max-height: 350px;
+    overflow: auto;  
+  }
+
+  .table tr td{
+    /* text-align: center; */
+    font-size: 10px;
+    color: black;
+    font-weight: 400;
+  
+     }
+     .table tr th{
+        /* text-align: center; */
+        position: sticky;
+        background-color: #ECF7FE;
+        border-bottom:2px solid #9ad4f8;
+        color: rgb(34, 33, 33);
+        font-size: 10px;
+        font-weight: 500;
+        top: 0px;
+     
+      
+         }
+         /* .table thead{
+            border-bottom:2px solid rgb(7, 11, 240);
+         } */
+  
+         .totalRow{
+            position: sticky;
+            background-color: white;
+            bottom: 0;
+         }
+  
+         .EditClass i{
+          font-size: 16px;
+          cursor: pointer;
+         }
+  
+         .EditClass i:hover{
+          font-size: 16px;
+          color: #007fdf;
+         }
+
+         .spinnerclass{
+            width: 0.8rem;
+    height: 0.8rem;
+    color: #b6ff46;
+    margin-bottom: 3px;
+    margin-left: 3px;
+         }
+
+         .tab-container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            position: relative;
+            padding: 2px;
+            background-color: #ebebec;
+            border-radius: 9px;
+            margin: 10px 20px 0px 20px;
+          }
+          
+          .indicator {
+            content: "";
+            width: 50%;
+            height: 28px;
+            background: #FFFFFF;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            z-index: 9;
+            border: 0.5px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.12), 0px 3px 1px rgba(0, 0, 0, 0.04);
+            border-radius: 7px;
+            transition: all 0.2s ease-out;
+          }
+          
+          .tab {
+            width: 50%;
+            height: 28px;
+            position: relative;
+            z-index: 99;
+            background-color: transparent;
+            border: 0;
+            outline: none;
+            flex: none;
+            align-self: stretch;
+            flex-grow: 1;
+            cursor: pointer;
+            font-weight: 500;
+          }
+          
+          .tab--1 ~ .indicator {
+            left: 2px;
+          }
+          
+          .tab--2 ~ .indicator {
+            left: calc(50% - 2px);
+          }
+          
+          .pHeader{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 10px 0px;
+          }
+        
+          .Infor{
+            font-size: 15px;
+           font-weight: 600;
+           
+          }
+          
+
+          .masterImg{
+            /* border: 1px solid black; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 200px;
+            margin-top: 20px;
+           }

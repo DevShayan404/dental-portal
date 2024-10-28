@@ -1,0 +1,47 @@
+.TableCard{
+    max-height: 200px;
+    overflow: auto;  
+  }
+
+  .table tr td{
+    text-align: center;
+    font-size: 12px;
+    color: black;
+    font-weight: 400;
+  
+     }
+     .table tr th{
+        text-align: center;
+        position: sticky;
+        background-color: #ECF7FE;
+        border-bottom:2px solid #9ad4f8;
+        color: rgb(34, 33, 33);
+        font-size: 12px;
+        font-weight: 500;
+        top: 0px;
+     
+      
+         }
+         /* .table thead{
+            border-bottom:2px solid rgb(7, 11, 240);
+         } */
+  
+         .totalRow{
+            position: sticky;
+            background-color: white;
+            bottom: 0;
+         }
+
+         .masterImg{
+            /* border: 1px solid black; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 200px;
+            margin-top: 10px;
+           }
+           .masterImg img{
+  width: 55%;
+  height: 100%;
+           }

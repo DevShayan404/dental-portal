@@ -1,0 +1,333 @@
+.MainContent {
+  height: 500px;
+  /* margin-top: 10px; */
+}
+
+.form-label {
+  margin-bottom: 1px;
+  font-size: 13px;
+}
+.colSet {
+  margin-top: 15px;
+}
+
+.title {
+  padding: 20px 20px 0px 20px;
+  display: flex;
+  color: black;
+  justify-content: space-between;
+  align-items: center;
+}
+.form-field {
+  width: 100%;
+  /* height: 45px; */
+}
+
+/* input::placeholder {
+  font-size: 13px;
+  color: #9f9f9f;
+}
+input[type="number"] {
+  font-size: 13px;
+  height: 36px;
+  border: 1px solid rgb(192, 192, 192);
+  border-radius: 4px;
+} */
+
+.custom-placeholder {
+  font-size: 13px;
+}
+
+.slot__dropdown::ng-deep.p-dropdown {
+  /* width: 100%!important; */
+  width: 100%;
+  height: 55px;
+}
+
+.dateTab {
+  /* border: 1px solid; */
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.tab {
+  border: 1px solid rgb(96, 149, 228);
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: #007fdf;
+  background-color: #ecf7ff;
+  font-size: 10px;
+}
+
+.tab:hover {
+  cursor: pointer;
+  color: white;
+  background-color: #71c4ff;
+}
+
+div.active {
+  color: white;
+  background-color: #71c4ff;
+}
+
+.parent {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  margin: auto;
+  position: relative;
+}
+
+.AssignBusiines {
+  color: #727577;
+  padding: 1px;
+  position: absolute;
+  top: -15px;
+  font-size: 12px;
+  background-color: white;
+}
+
+/* //////////////////////////Add card worl.//////////////////// */
+.card-footer {
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 15px;
+  width: 90%;
+}
+.card-footer-div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-footer-div strong {
+  font-weight: 600;
+  font-size: 1.2rem;
+  position: relative;
+}
+.card-footer-div strong i {
+  position: absolute;
+  top: 0;
+  left: -20%;
+  transform: translate(20%, 0);
+  font-size: 1.8rem;
+  color: var(--font-gray);
+}
+.card-footer-div button {
+  width: max-content;
+  background-color: var(--red);
+  border: none;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  border-radius: 0.2rem;
+}
+.showCardForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.sub-footer {
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 0.3rem;
+  border: 1px solid var(--gray-border);
+  background-color: #f2f2f2;
+  /* border: 1px solid var(--sky-blue);
+              background-color: var(--light-blue); */
+}
+.sub-footer span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.sub-footer span input[type="radio"] {
+  accent-color: var(--sky-blue);
+  cursor: pointer;
+}
+.sub-footer span img {
+  width: 30px;
+}
+.cartMain {
+  width: 100%;
+  padding: 15px;
+  border-radius: 0.3rem;
+  border: 1px solid var(--gray-border);
+  /* / background-color: #f2f2f2; / */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+/* .cartMain  strong{
+              color: var(--sky-blue);
+            } */
+.cartMain form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.cartMain form .cart-input {
+  /* / border: 1px solid red; / */
+  display: flex;
+  gap: 20px;
+}
+.creditFormButton {
+  width: 100%;
+  background-color: var(--red);
+  border: none;
+  color: #fff;
+  padding: 8px;
+  font-weight: 600;
+  border-radius: 0.2rem;
+}
+.creditFormVButtonActive {
+  width: 100%;
+  background-color: var(--gray-border);
+  border: 0;
+  color: #fff;
+  padding: 8px;
+  font-weight: 600;
+  border-radius: 0.2rem;
+}
+
+.cart__form {
+  position: relative;
+  width: 100%;
+  height: 40px;
+}
+.cart__form img {
+  position: absolute;
+  top: 50%;
+  right: 2%;
+  transform: translate(-2%, -50%);
+  width: 30px;
+}
+.saveCard {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9rem;
+  color: var(--font-gray);
+}
+.saveCard input[type="checkbox"] {
+  zoom: 1.4;
+  cursor: pointer;
+}
+.cart__form .cart__form__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 0.3rem;
+  font-family: inherit;
+  font-size: inherit;
+  color: black;
+  outline: none;
+  padding: 0 1rem;
+  background: none;
+  z-index: 1;
+}
+.cart__form .cart__form__label {
+  position: absolute;
+  left: 0.5rem;
+  top: 0.4rem;
+  padding: 0 0.4rem;
+  color: rgb(142, 142, 142);
+  cursor: text;
+  transition: top 200ms ease-in left 200ms ease-in font-size 200ms ease-in;
+  background-color: #fff;
+  transition: 0.3s;
+}
+.cart__form__input:focus + .cart__form__label {
+  top: -0.5rem;
+  left: 0.5rem;
+  color: var(--sky-blue);
+  font-size: 0.7rem;
+  font-weight: 500;
+  z-index: 10;
+}
+
+.cart__form__input:not(:placeholder-shown).cart__form__input:not(:focus)
+  + .cart__form__label {
+  top: -0.5rem;
+  left: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  z-index: 10;
+}
+.cart__form .cart__form__input:focus {
+  border-color: var(--sky-blue);
+}
+/*-------------------- validate input -------------------------------------*/
+
+.cart__form .cartFormInputActive {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid red;
+  border-radius: 0.3rem;
+  font-family: inherit;
+  font-size: inherit;
+  color: black;
+  outline: none;
+  padding: 0 1rem;
+  background: none;
+  z-index: 1;
+}
+.cart__form .cartFormLabelActive {
+  position: absolute;
+  left: 0.5rem;
+  top: 0.4rem;
+  padding: 0 0.4rem;
+  color: red;
+  cursor: text;
+  transition: top 200ms ease-in left 200ms ease-in font-size 200ms ease-in;
+  background-color: #fff;
+  transition: 0.3s;
+}
+.cartFormInputActive:focus + .cartFormLabelActive {
+  top: -0.5rem;
+  left: 0.5rem;
+  color: red;
+  font-size: 0.7rem;
+  font-weight: 500;
+  z-index: 10;
+}
+.cartFormInputActive:not(:placeholder-shown).cartFormInputActive:not(:focus)
+  + .cartFormLabelActive {
+  top: -0.5rem;
+  left: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  z-index: 10;
+}
+/* .cart__form .cartFormInputActive:focus {
+  border-color: var(--sky-blue);
+} */
+.cart__form i {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(-50%, -50%);
+  color: #ed2f2f;
+  font-size: 1.2rem;
+}

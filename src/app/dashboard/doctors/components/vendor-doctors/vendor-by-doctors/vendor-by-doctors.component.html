@@ -1,0 +1,118 @@
+<div class="card mb-5" *ngIf="isParentRouteActive()" >
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="back__icon" (click)="backToDoctorListPage()" pTooltip="Back to Doctors">
+            <i class="pi pi-angle-double-left"></i>
+        </div>
+        <h2 *ngIf="doctorName">All Hospital by {{doctorName}}</h2>
+        <button class="btn" (click)="handleAddEditVendorDoctor(0)">
+            <i class='bx bx-plus-circle'></i>
+            Add New
+        </button>
+    </div>
+    <div style="min-height: 400px; max-height: 700px; overflow-y: scroll" >
+        <div class="card-body"  >
+
+            <div class="input__field">
+                <mat-form-field>
+                    <mat-label>Search Hospital</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Hospital Name" #input>
+                </mat-form-field>
+            </div>
+
+            <!-- *ngIf="dataSource?.data?.length! > 0; else notFound" -->
+            <div class="mat-elevation-z8 table"  >
+
+                <div *ngIf="isLoading" >
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                    <app-skeleton ></app-skeleton>
+                </div>
+
+                <table *ngIf="!isLoading"  mat-table [dataSource]="dataSource" matSort>
+
+                    <ng-container matColumnDef="BusinessName">
+                        <th class="table__head" mat-header-cell *matHeaderCellDef mat-sort-header>Business Name </th>
+                        <td class="table_section" mat-cell *matCellDef="let row">{{row?.BusinessName}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Address1">
+                        <th class="table__head" mat-header-cell *matHeaderCellDef mat-sort-header>Address 1 </th>
+                        <td class="table_section" mat-cell *matCellDef="let row">{{row?.Address1}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Address2">
+                        <th class="table__head" mat-header-cell *matHeaderCellDef mat-sort-header>Address 2 </th>
+                        <td class="table_section" mat-cell *matCellDef="let row">{{row?.Address2}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="City">
+                        <th class="table__head" mat-header-cell *matHeaderCellDef mat-sort-header>City </th>
+                        <td class="table_section" mat-cell *matCellDef="let row">{{row?.City}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Lat">
+                        <th class="table__head" mat-header-cell *matHeaderCellDef mat-sort-header>Latitude </th>
+                        <td class="table_section" mat-cell *matCellDef="let row">{{row?.Lat}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Long">
+                        <th class="table__head" mat-header-cell *matHeaderCellDef mat-sort-header>Longitude </th>
+                        <td class="table_section" mat-cell *matCellDef="let row">{{row?.Long}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Status">
+                        <th class="table__head" mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                        <td class="table_section" mat-cell *matCellDef="let row">{{row?.Status}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Actions">
+                        <th class="table__head" mat-header-cell *matHeaderCellDef>Actions</th>
+                        <td class="table_section" mat-cell *matCellDef="let row">
+                            <div class="mat__input">
+                                <button class="btn edit_btn" (click)="handleAddEditVendorDoctor(row)">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn delete_btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <button class="btn view_btn" pTooltip="View Service" tooltipPosition="bottom"
+                                [routerLink]="['doctor-service', row.Id]">
+                                <i class="fas fa-user-md"></i>
+                            </button>
+                            </div>
+
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+</div>
+<router-outlet></router-outlet>
+<p-toast></p-toast>
+
+
+<ng-template #loading>
+    <div class="not__found">
+        <img src="../../../../../assets/img/loader.gif" alt="not found"/>
+        <div class="not-found__text">
+            <h1 >Loading...</h1>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #notFound>
+    <div class="not__found">
+        <img src="../../../../../assets/img/not-found.jpg" alt="not found"/>
+        <div class="not-found__text">
+            <h1>Data Not Found</h1>
+        </div>
+    </div>
+</ng-template>

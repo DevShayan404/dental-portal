@@ -1,0 +1,215 @@
+<section *ngIf="!isLoading; else loading">
+    <div class="main-container" *ngIf="doctorList">
+        <div class="container-profile">
+
+            <div class="back__icon" (click)="backtoParentPage()" pTooltip="Back to Page">
+                <i class="pi pi-angle-double-left"></i>
+            </div>
+            
+            <div class="user__div">
+                <h5><strong class="title">User Profile</strong></h5>
+            </div>
+            
+            <div class="profile__section">
+
+                <!-- <img [src]="doctorList.ProfilePic" alt="img"> -->
+
+                <div class="profile__header">
+                    <h2><strong>{{doctorList.InitialName + ' ' + doctorList.FirstName + ' ' +
+                            doctorList.LastName}}</strong></h2>
+                    <h4>{{doctorList.Email}}</h4>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="profile__details">
+            <div class="container-profile personal">
+                <div class="user__div">
+                    <h5><strong class="title">User Info</strong></h5>
+                </div>
+                <hr />
+                <div class="user__info__section">
+                    <h3 class="flex-left"><strong>fees:</strong></h3>
+                    <h3 class="flex-right">{{doctorList.Fees | currency:'CAD':'symbol'}}</h3>
+                </div>
+                <hr />
+                <div class="user__info__section">
+                    <h3 class="flex-left"><strong>number:</strong></h3>
+                    <h3 class="flex-right">{{doctorList.Number}}</h3>
+                </div>
+                <hr />
+                <div class="user__info__section">
+                    <h3 class="flex-left"><strong>gender:</strong></h3>
+                    <h3 class="flex-right">{{doctorList.Gender}}</h3>
+                </div>
+                <hr />
+                <div class="user__info__section">
+                    <h3 class="flex-left"><strong>email:</strong></h3>
+                    <h3 class="flex-right">{{doctorList.Email}}</h3>
+                </div>
+                <hr />
+                <div class="user__info__section">
+                    <h3 class="flex-left"><strong>contact1:</strong></h3>
+                    <h3 class="flex-right">{{doctorList.Contact1}}</h3>
+                </div>
+                <hr />
+                <div class="user__info__section">
+                    <h3 class="flex-left"><strong>contact2:</strong></h3>
+                    <h3 class="flex-right">{{doctorList.Contact2}}</h3>
+                </div>
+
+            </div>
+
+            <div class="container-profile experience" *ngIf="doctorList?.Experiences?.length > 0">
+                <div class="user__div">
+                    <h5><strong class="title">Experience Info</strong></h5>
+                </div>
+                <div *ngFor="let experienceItem of doctorList?.Experiences">
+                    <hr />
+                    <div class="user__info__section">
+                        <h3 class="flex-left"><strong>Experience Title:</strong></h3>
+                        <h3 class="flex-right">{{experienceItem.hospitalName}}</h3>
+                    </div>
+                    <hr />
+                    <div class="user__info__section">
+                        <h3 class="flex-left"><strong>Start From:</strong></h3>
+                        <h3 class="flex-right">{{experienceItem.startDate | date:'longDate'}}</h3>
+                    </div>
+                    <hr />
+                    <div class="user__info__section">
+                        <h3 class="flex-left"><strong>To End:</strong></h3>
+                        <h3 class="flex-right">{{experienceItem.endDate | date:'longDate'}}</h3>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="container-profile education" *ngIf="doctorList?.Educations?.length > 0">
+                <div class="user__div">
+                    <h5><strong class="title">Education Info</strong></h5>
+                </div>
+                <div *ngFor="let educationItem of doctorList?.Educations">
+                    <hr />
+                    <div class="user__info__section">
+                        <h3 class="flex-left"><strong>Education Title:</strong></h3>
+                        <h3 class="flex-right">{{educationItem.Degree?.Name}}</h3>
+                    </div>
+                    <hr />
+                    <div class="user__info__section">
+                        <h3 class="flex-left"><strong>Start From:</strong></h3>
+                        <h3 class="flex-right">{{educationItem.startDate | date:'longDate'}}</h3>
+                    </div>
+                    <hr />
+                    <div class="user__info__section">
+                        <h3 class="flex-left"><strong>To End:</strong></h3>
+                        <h3 class="flex-right">{{educationItem.endDate | date:'longDate'}}</h3>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="container-profile vendor_service" *ngIf="doctorList?.DoctorVendors?.length > 0">
+                <div class="user__div">
+                    <h5><strong class="title">Hospital Info</strong></h5>
+                    <div class="margin">
+                        <p-accordion [activeIndex]="0">
+                            <div *ngFor="let hospitalItem of doctorList?.DoctorVendors index as i">
+                                <p-accordionTab header='Hospital Name: {{hospitalItem?.Vendor?.BusinessName}}'>
+                                    <div class="hospital__section">
+                                        <div class="">
+                                            <!-- <h6 class="heading">:</h6> -->
+                                            <hr />
+                                            <div class="user__info__section">
+                                                <h3 class="flex-left"><strong>Business Name:</strong></h3>
+                                                <h3 class="flex-right">{{hospitalItem?.Vendor?.BusinessName}}</h3>
+                                            </div>
+                                            <hr />
+                                            <div class="user__info__section">
+                                                <h3 class="flex-left"><strong>Address One:</strong></h3>
+                                                <h3 class="flex-right">{{hospitalItem?.Vendor?.Address1}}</h3>
+                                            </div>
+                                            <hr />
+                                            <div class="user__info__section">
+                                                <h3 class="flex-left"><strong>Address Two:</strong></h3>
+                                                <h3 class="flex-right">{{hospitalItem?.Vendor?.Address2}}</h3>
+                                            </div>
+                                            <hr />
+                                            <div class="user__info__section">
+                                                <h3 class="flex-left"><strong>Latitude:</strong></h3>
+                                                <h3 class="flex-right">{{hospitalItem?.Vendor?.Lat}}</h3>
+                                            </div>
+                                            <hr />
+                                            <div class="user__info__section">
+                                                <h3 class="flex-left"><strong>Longitude:</strong></h3>
+                                                <h3 class="flex-right">{{hospitalItem?.Vendor?.Long}}</h3>
+                                            </div>
+                                        </div>
+
+                                        <div class="user__div" *ngIf="hospitalItem?.DoctorServices?.length > 0">
+                                            <h5><strong class="title">Services:</strong></h5>
+                                            <div class="margin">
+                                                <p-accordion [activeIndex]="0">
+
+                                                    <div
+                                                        *ngFor="let serviceItem of hospitalItem?.DoctorServices; index as i">
+                                                        <p-accordionTab
+                                                            header='Service Name: {{serviceItem?.Services?.Name}}'>
+                                                            <div class="service__section">
+                                                                <!-- <h6 class="heading">Service {{serviceItem?.Services?.Name}}:</h6> -->
+                                                                <hr />
+                                                                <div class="user__info__section">
+                                                                    <h3 class="flex-left"><strong>Name:</strong></h3>
+                                                                    <h3 class="flex-right">
+                                                                        {{serviceItem?.Services?.Name}}</h3>
+                                                                </div>
+                                                                <hr />
+                                                                <div class="user__info__section">
+                                                                    <h3 class="flex-left"><strong>Fees:</strong></h3>
+                                                                    <h3 class="flex-right">{{serviceItem?.Fees}}</h3>
+                                                                </div>
+                                                                <hr />
+                                                                <div class="user__info__section">
+                                                                    <h3 class="flex-left"><strong>Discount:</strong>
+                                                                    </h3>
+                                                                    <h3 class="flex-right">{{serviceItem?.Discount ||
+                                                                        'Not Found'}}
+                                                                    </h3>
+                                                                </div>
+                                                            </div>
+                                                        </p-accordionTab>
+                                                    </div>
+                                                </p-accordion>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </p-accordionTab>
+                            </div>
+                        </p-accordion>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+
+
+<ng-template #loading>
+    <div class="not__found">
+        <img src="../../../../../assets/img/loader.gif" alt="not found" />
+        <div class="not-found__text">
+            <h1>Loading...</h1>
+        </div>
+    </div>
+</ng-template>
+
+<p-toast></p-toast>

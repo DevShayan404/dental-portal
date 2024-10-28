@@ -1,0 +1,82 @@
+.modal_inner_section {
+    padding: 10px;
+
+}
+
+
+.dropdown__section {
+    width: 100%;
+    margin: 10px 0px;
+}
+
+.dropdown::ng-deep.p-dropdown {
+    width: 100% !important;
+}
+
+.calendar__section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 8px 4px;
+}
+.left__time_picker{
+    width: 100%;
+    margin-right: 5px;
+}
+.right__time_picker{
+    width: 100%;
+    margin-left: 5px;
+}
+
+
+.time__picker::ng-deep.p-calendar {
+    width: 100% !important;
+}
+
+.am__pm__format {
+    width: 30%;
+}
+
+.input__btn {
+    width: 99.5%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 12px 0px;
+}
+
+.row {
+    margin: 10px;
+}
+
+.p-input-icon-left>.p-inputtext {
+    padding-left: 2.5rem;
+}
+
+.p-input-icon-right>.p-inputtext {
+    padding-right: 2.5rem;
+}
+
+.btn_icon {
+    width: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+::ng-deep.p-dropdown .p-dropdown-label {
+    font-weight: 500 !important;
+  }
+
+::ng-deep.p-dialog-mask {
+    z-index: 1000000 !important;
+}
+
+/* .label {
+    padding: 0px;
+    margin: 0px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #7e7e7e;
+} */

@@ -1,0 +1,202 @@
+<div class="card mb-5">
+    <div class="card-header d-flex justify-content-between align-items-center" style="padding: 6px 25px;">
+        <h4>Available Slots</h4>
+        <button class="btn btn_icon" (click)="handleAddEditSlots(0)">
+            <i class='bx bx-plus-circle'></i>
+            Add New</button>
+    </div>
+    <div style="min-height: 400px; max-height: 600px; overflow-y: scroll">
+        <div class="card-body">
+
+            <div *appHasRole="adminRole">
+                <div class="admin__filter">
+
+                    <div style="flex: 0.4;">
+
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input type="text" pInputText (keyup)="applyFilter($event)" placeholder="Ex. Slot Name..">
+
+                        </span>
+
+
+                    </div>
+
+                    <div class="filters">
+                        <div>
+                            <p-dropdown class="slot__dropdown" (onChange)="changeCityForHospitals($event.value)"
+                                [options]="CitiesList" [(ngModel)]="cityModel" optionLabel="Name" [filter]="true"
+                                filterBy="Name" placeholder="Select a City">
+                                <ng-template pTemplate="selectedItem">
+                                    <div class="flex align-items-center gap-2" *ngIf="cityModel">
+                                        <div>{{ cityModel.Name }}</div>
+                                    </div>
+                                </ng-template>
+                                <ng-template let-country pTemplate="item">
+                                    <div class="flex align-items-center gap-2">
+                                        <div>{{ country.Name }}</div>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+
+                        <div>
+                            <p-dropdown class="slot__dropdown" [disabled]="enableHospitalItem" (onChange)="changeHospitalForDoctor($event.value)"
+                                [options]="vendorsListByCity" placeholder="Select a Hospital"
+                                [(ngModel)]="doctorVendorModel" optionLabel="BusinessName" [filter]="true"
+                                filterBy="BusinessName">
+                                <ng-template pTemplate="selectedItem">
+                                    <div class="flex align-items-center gap-2" *ngIf="doctorVendorModel">
+                                        <div>{{ doctorVendorModel.BusinessName }}</div>
+                                    </div>
+                                </ng-template>
+                                <ng-template let-hospital pTemplate="item">
+                                    <div class="flex align-items-center gap-2">
+                                        <div>{{ hospital.BusinessName }}</div>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+
+                        <div>
+                            <p-dropdown class="slot__dropdown" [disabled]="enableDoctorItem"  [options]="doctorsList"
+                                [(ngModel)]="doctorModel" optionLabel="fullName" [filter]="true" filterBy="fullName"
+                                placeholder="Select a Doctor">
+                                <ng-template pTemplate="selectedItem">
+                                    <div class="flex align-items-center gap-2" *ngIf="doctorModel">
+                                        <div>{{ doctorModel.fullName }}</div>
+                                    </div>
+                                </ng-template>
+                                <ng-template let-doctor pTemplate="item">
+                                    <div class="flex align-items-center gap-2">
+                                        <div>{{ doctor.fullName }}</div>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+                    </div>
+
+                    <button class="btn search_icon" (click)="handleSlotsFilterByAdmin()">
+                        <i class='bx bx-search-alt-2'></i>
+                        Search</button>
+                </div>
+
+            </div>
+
+            <div *appHasRole="doctorRole">
+                <div class="admin__filter">
+
+                    <div style="flex: 0.4;">
+
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input type="text" pInputText (keyup)="applyFilter($event)" placeholder="Ex. Slot Name..">
+
+                        </span>
+
+
+                    </div>
+
+                    <div class="filters__doctor">
+                        <div>
+                            <p-dropdown class="slot__dropdown" [options]="vendorsListByCity"
+                                placeholder="Select a Hospital" [(ngModel)]="doctorVendorModel"
+                                optionLabel="BusinessName" [filter]="true" filterBy="BusinessName">
+                                <ng-template pTemplate="selectedItem">
+                                    <div class="flex align-items-center gap-2" *ngIf="doctorVendorModel">
+                                        <div>{{ doctorVendorModel.BusinessName }}</div>
+                                    </div>
+                                </ng-template>
+                                <ng-template let-hospital pTemplate="item">
+                                    <div class="flex align-items-center gap-2">
+                                        <div>{{ hospital.BusinessName }}</div>
+                                    </div>
+                                </ng-template>
+                            </p-dropdown>
+                        </div>
+                    </div>
+
+                    <button class="btn search_icon" (click)="handleSlotsFilterByDoctor()">
+                        <i class='bx bx-search-alt-2'></i>
+                        Search</button>
+                </div>
+
+            </div>
+
+            <div>
+                <div class="mat-elevation-z8 table">
+
+                    <div>
+                        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+                        <app-skeleton *ngIf="isTableLoading"></app-skeleton>
+                    </div>
+
+
+                    <table *ngIf="!isTableLoading" mat-table [dataSource]="dataSource">
+
+                        <ng-container matColumnDef="Vendor">
+                            <th class="table__head" mat-header-cell *matHeaderCellDef>Hospital Name
+                            </th>
+                            <td class="table_section" mat-cell *matCellDef="let row"> {{row?.Vendor}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="DayOfWeek">
+                            <th class="table__head" mat-header-cell *matHeaderCellDef>Days</th>
+                            <td class="table_section" mat-cell *matCellDef="let row"> {{row?.Day}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="StartTimeGet">
+                            <th class="table__head" mat-header-cell *matHeaderCellDef>Start Time</th>
+                            <td class="table_section" mat-cell *matCellDef="let row"> {{row?.StartTimeGet}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="EndTimeGet">
+                            <th class="table__head" mat-header-cell *matHeaderCellDef>End Time </th>
+                            <td class="table_section" mat-cell *matCellDef="let row"> {{row?.EndTimeGet}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Shift">
+                            <th class="table__head" mat-header-cell *matHeaderCellDef>Shift</th>
+                            <td class="table_section" mat-cell *matCellDef="let row"> {{row?.Shift?.Type}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="IntervalinMints">
+                            <th class="table__head" mat-header-cell *matHeaderCellDef>Interval Minutes
+                            </th>
+                            <td class="table_section" mat-cell *matCellDef="let row"> {{row?.IntervalinMints}}</td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="Actions">
+                            <th class="table__head" mat-header-cell *matHeaderCellDef>Actions</th>
+                            <td class="table_section" mat-cell *matCellDef="let row">
+                                <div class="mat__input">
+                                    <button class="btn edit_btn" pTooltip="Edit Doctor" tooltipPosition="bottom"
+                                        (click)="handleAddEditSlots(row)">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <!-- <button class="btn delete_btn" pTooltip="Delete Doctor" tooltipPosition="bottom"
+                                        (click)="handleDeleteDoctors(row)">
+                                        <i class="fas fa-trash"></i>
+                                    </button> -->
+
+                                </div>
+
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="4">No data matching the filter</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator> -->
+</div>
+<p-toast></p-toast>

@@ -1,0 +1,72 @@
+
+<div class="card mb-5">
+    <div class="card-header d-flex justify-content-between align-items-center" style="padding: 6px 25px;">
+        <h4>Hospital Percentage</h4>
+        <button mat-raised-button (click)="AddNew(0)"  ><i class="bi bi-plus-circle"></i> Add New</button>
+    </div>
+    <div style="min-height: 400px; max-height: 600px; overflow-y: scroll">
+        <div class="card-body">
+           
+          <div class="row">
+            <div class="col-6">
+                <div>
+                    <ng-select [loading]="!CitiesList" [clearable]="false"  (change)="changeCity($event)" [ngClass]="'custom-placeholder'"  [placeholder]="'Select City'">
+                        <ng-option  *ngFor="let City of CitiesList" [value]="City.Id">{{City.Name}}</ng-option>
+                     </ng-select>
+                </div>
+            </div>
+    
+              <div  class="col-6">
+                <div>
+                    <!-- <label for="exampleFormControlInput1" class="form-label">Select Hospital*</label> -->
+                    <ng-select [loading]="!vendorsListByCity" [readonly]="!vendorsListByCity" (change)="changeVendor($event)"  [clearable]="false"   [ngClass]="'custom-placeholder'"  [placeholder]="'Select Hospital'">
+                        <ng-option  *ngFor="let vedor of vendorsListByCity" [value]="vedor.Id">{{vedor.BusinessName}}</ng-option>
+                     </ng-select>
+                </div>
+              </div>
+          </div>
+
+
+
+            <div>
+                <!-- <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar> -->
+                <app-skeleton *ngIf="isTableLoading == true"></app-skeleton>
+            </div>
+
+            <mat-card class="TableCard" *ngIf="isTableLoading == false"  style="margin-top: 15px;">
+                <table class="table table-response">
+                <thead>
+                <tr>
+                  <th>Hospital</th>
+                <th>Created By</th>
+                <th>Created On</th>
+                <th>Percentage</th>
+                <th>Amount</th>
+                <th>Action</th>
+                
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of VendorList">
+                  <td>{{item.Vendor?.BusinessName}}</td>
+                <td>{{item.Operations?.Name}}</td>
+                <td>{{item.CreatedOn | date}}</td>
+                <td>{{item.Percentage}}%</td>
+                <td>{{item.Amount}}$</td>
+                <td >
+                    <!-- <span class="EditClass"><i  (click)="EditFee(item)" class="bi bi-pencil-square"></i></span>  -->
+                    <span class="DeleteClass"><i (click)="deleteHospitalRow(item.Id)" class="bi bi-trash3"></i></span> </td>
+                </tr>
+                
+                </tbody>
+                
+                </table>
+                </mat-card>
+
+
+            </div>
+            </div>
+            </div>
+            <p-toast></p-toast>
+
+      

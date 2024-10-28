@@ -1,0 +1,51 @@
+.topbar {
+    height: 3.5rem
+}
+
+.sticky-top {
+    position: sticky;
+}
+
+.sidebar__section {
+    background-color: #007fdf;
+}
+
+.sidebar .nav-item .nav-link span {
+    font-weight: 500;
+    color: white;
+
+}
+
+.nav-item .fas {
+    color: white;
+    margin-right: 15px;
+}
+
+.nav__item {
+    background: #2499f9;
+    padding: 10px 27px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.active-link{
+    background: #186dae;
+}
+
+.nav__item_link {
+    text-decoration: none;
+    color: white;
+    
+}
+
+.dashboar__size{
+    padding: 5px 10px;
+}
+
+
+
+.overflowSHow{
+    /* border: 2px solid orange; */
+    height: 80vh;
+     overflow-y: auto;
+     overflow-x: hidden;
+}

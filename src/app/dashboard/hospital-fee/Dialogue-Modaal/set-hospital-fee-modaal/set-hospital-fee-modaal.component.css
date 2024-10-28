@@ -1,0 +1,47 @@
+.MainContent{
+height: 300px;
+/* margin-top: 10px; */
+}
+
+.form-label{
+margin-bottom:1px;
+font-size:13px
+}
+.colSet{
+    margin-top: 15px;
+}
+
+.title{
+    padding: 20px 20px 0px 20px;
+    display: flex;
+    color: black;
+    justify-content: space-between;
+    align-items: center;
+}
+.form-field{
+    width: 100%;
+    /* height: 45px; */
+  
+  }
+
+  input::placeholder {
+    font-size: 13px; 
+    color: #9f9f9f; 
+  }
+  input[type="number"]  {
+    font-size: 13px;
+    height: 36px;
+    border: 1px solid rgb(192, 192, 192);
+    border-radius: 4px;
+  }
+  
+  .custom-placeholder {
+    font-size: 13px; 
+  }
+
+  .slot__dropdown::ng-deep.p-dropdown {
+    /* width: 100%!important; */
+    width: 100%;
+    height: 55px;
+  
+  }

@@ -1,0 +1,136 @@
+<section [@slideInOut] >
+    <div class="radio__section">
+        <div class="radio__btn">
+            <p-radioButton (ngModelChange)="handleToggleRegistrationRadioEvent($event)" name="personalClinic" value="1"
+                [(ngModel)]="registrationModel" inputId="registrationId"></p-radioButton>
+            <label for="registrationId" class="ml-2">Personal Clinic</label>
+        </div>
+    
+        <div class="radio__btn">
+            <p-radioButton (ngModelChange)="handleToggleRegistrationRadioEvent($event)" name="hospital" value="2"
+                [(ngModel)]="registrationModel" inputId="registrationId"></p-radioButton>
+            <label for="registrationId" class="ml-2">Hospital</label>
+        </div>
+    </div>
+    
+    <form *ngIf="registrationModel === '1'" [formGroup]="vendorPersonalClinicInfoForm"
+    (ngSubmit)="confirmationPersonalClinicInfo()">
+
+        <div class="input_text_field">
+            <div class="p-input-icon-left p-input-icon-right">
+                <p-dropdown placeholder="Select a City *" formControlName="cityId" [options]="citiesList" optionValue="Id"
+                    optionLabel="Name"></p-dropdown>
+            </div>
+        </div>
+    
+            <div class="input__full">
+                <div class="input_text_field">
+                    <div class="p-input-icon-left p-input-icon-right">
+                        <i class="bx bxs-business" style="color: #6c7689;"></i>
+                        <input placeholder="Enter Business Name *" type="text" pInputText formControlName="businessName" />
+                        <i
+                            [ngClass]="validateVendorControls('businessName', 'required') ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+                    </div>
+                </div>
+            </div>
+    
+        <div class="row">
+            <div class="col">
+                <div class="input_text_field">
+                    <div class="p-input-icon-left p-input-icon-right">
+                        <i class="fas fa-location-arrow" style="color: #6c7689;"></i>
+                        <input placeholder="Enter Address 1 *" type="text" pInputText formControlName="address1" />
+                        <i
+                            [ngClass]="validateVendorControls('address1', 'required')  ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col">
+                <div class="input_text_field">
+                    <div class="p-input-icon-left p-input-icon-right">
+                        <i class="fas fa-location-arrow" style="color: #6c7689;"></i>
+                        <input placeholder="Enter Address 2 *" type="text" pInputText formControlName="address2" />
+                        <i
+                            [ngClass]="validateVendorControls('address2', 'required')  ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="map__div">
+            <div (click)="handleMapDialog()" class="map__btn">
+                <i class='bx bxs-map-pin'></i>
+                Select Location From Maps *</div>
+        </div>
+    
+        <div class="m-top">
+            <button [disabled]="vendorPersonalClinicInfoForm.invalid" class="login__btn" [ngClass]="vendorPersonalClinicInfoForm.invalid ? 'disabled' : 'enabled' ">
+                <span *ngIf="isLoading" class="spinner"></span>
+                Next</button>
+            <div class="registration__section">
+                <p>Already have an account?</p>
+                <a routerLink="/authentication/login" class="register_tag">Login</a>
+            </div>
+        </div>
+    </form>
+    
+    
+    <form *ngIf="registrationModel === '2'" [formGroup]="vendorHospitalInfoForm"
+    (ngSubmit)="confirmationHospitalInfo()">
+    
+        <div class="input_text_field">
+            <div class="p-input-icon-left p-input-icon-right">
+                <p-dropdown (onChange)="handleChangeHospitalByCity($event)" placeholder="Select a City *"
+                    [options]="citiesList" optionValue="Id" optionLabel="Name"></p-dropdown>
+            </div>
+        </div>
+    
+        <div class="input_text_field" *ngIf="hospitalList?.length > 0">
+            <div class="p-input-icon-left p-input-icon-right">
+                <p-dropdown placeholder="Select a Hospital *" formControlName="vendorId" [options]="hospitalList"
+                    optionValue="Id" optionLabel="BusinessName"></p-dropdown>
+            </div>
+        </div>
+    
+        <div class="m-top">
+            <button [disabled]="vendorHospitalInfoForm.invalid" class="login__btn" [ngClass]="vendorHospitalInfoForm.invalid ? 'disabled' : 'enabled' ">
+                <span *ngIf="isLoading" class="spinner"></span>
+                Next</button>
+            <div class="registration__section">
+                <p>Already have an account?</p>
+                <a routerLink="/authentication/login" class="register_tag">Login</a>
+            </div>
+        </div>
+    </form>
+</section>
+
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+
+
+<p-dialog header="Maps" [(visible)]="visible" [modal]="true" [style]="{ width: '80vw' }" [draggable]="false"
+    [resizable]="false">
+
+    <!-- <input
+  type="text"
+  class="form-control"
+  placeholder="Search for a location"
+  (change)="onchange($event.target)"
+  
+/> -->
+    <google-map   width="100%"
+    height="30rem"
+    [options]="mapOptions"
+    [center]="mapCenter"
+    (mapClick)="handleMapEvent($event)">
+        <map-marker [position]="markerPosition"></map-marker>
+    </google-map>
+
+    {{lat}}
+    {{long}}
+
+
+    <div class="map_geographical__div">
+        <button class="login__btn enabled" (click)="handleConfirmLocation()"> Confirm Location </button>
+    </div>
+</p-dialog>

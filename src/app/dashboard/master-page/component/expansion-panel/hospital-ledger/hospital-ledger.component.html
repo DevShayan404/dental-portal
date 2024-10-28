@@ -1,0 +1,73 @@
+<div class="row" style="margin-top: 5px;">
+<div class="col-5">
+    <mat-form-field class="dateRange" style="width: 100%;">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [formGroup]="dateRange" [rangePicker]="picker">
+        <input matStartDate formControlName="start" placeholder="Start date">
+        <input matEndDate formControlName="end" placeholder="End date">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field> 
+</div>
+<div class="col-5">
+
+
+<mat-form-field class="form-field" style="width: 100%;">
+    <mat-label>Select Status</mat-label>
+<mat-select  required (selectionChange)="changeStatus($event.value)">
+    <mat-option *ngFor="let list of StatusList" [value]="list.id">
+      {{list.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+</div>
+
+<div class="col-2">
+<button style="width: 100%;margin-top: 10px;" (click)="SearchLedger()" mat-raised-button>Serach</button>
+</div>
+
+<div class="masterImg" *ngIf="isTableLoading == true">
+    <app-loader2></app-loader2>
+  </div>
+
+<div class="col-12" >
+  <mat-card class="TableCard" *ngIf="isTableLoading == false"  style="margin-top: 15px;">
+    <table class="table table-response">
+    <thead>
+    <tr>
+        <th>CityName</th>
+      <th>VendorName</th>
+    <th>Appointment</th>
+    <th>VendorPercent</th>
+    <th>PercentOfAmount</th>   
+ <th>DoctorFinalFees</th>
+ <th>InitialFees</th>
+ <th>PatientFinalFees</th>
+ <th>FinalLedgerAmount</th>
+
+    
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of AllLedger">
+      <td>{{item?.CityName }}</td>
+    <td>{{item?.VendorName}}</td>
+    <td>{{item?.Appointment | date}}</td>
+    <td>{{item?.VendorPercent | percent}}</td>
+    <td>{{item?.PercentOfAmount | currency}}</td>
+    <td>{{item?.DoctorFinalFees | currency}}</td>
+    <td>{{item?.InitialFees | currency}}</td>
+    <td>{{item?.PatientFinalFees | currency}}</td>
+    <td>{{item?.FinalLedgerAmount | currency}}</td>
+
+    <!-- <td> <i class="bi bi-eye"></i> </td> -->
+    </tr>
+    
+    </tbody>
+    
+    </table>
+    </mat-card>
+</div>
+</div>

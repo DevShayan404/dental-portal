@@ -1,0 +1,113 @@
+<section>
+    <div class="add_btn__section" *ngIf="!isUpdate">
+        <button class="add__btn" (click)="addItem()" >
+            <i class='bx bxs-folder-plus'></i>
+            Add hospital Timing</button>
+    </div>
+
+
+    <form [formGroup]="officeTimingInfoForm" class="form__section" (ngSubmit)="confirmationOfficeTimingeInfo()">
+        <div class="container__section">
+            <div formArrayName="itemsArray" *ngFor="let item of getControls(); let i = index;">
+
+                <div [formGroupName]="i" class="experience__section">
+
+                    <div class="experience__title__div">
+                        <div>
+                            <h5>Hospital Timing Details: {{i+1}}</h5>
+                        </div>
+                        <div *ngIf="!isUpdate">
+                            <button (click)="removeOfficeTiming(i)" class="remove__btn">
+                                <i class='bx bxs-trash'></i>
+                                Remove</button>
+                        </div>
+                    </div>
+
+                    <div *ngIf="IsUpdate" class="dropdown__section">
+                        <label class="label"> Select a City *</label>
+                        <p-dropdown class="dropdown" [options]="citiesList" placeholder="Select a City"
+                            (onChange)="handleHospitalByCity($event)" formControlName="cityId" [(ngModel)]="cityModel"
+                            optionLabel="Name" [filter]="true" filterBy="Name">
+                            <ng-template pTemplate="selectedItem">
+                                <div class="flex align-items-center gap-2" *ngIf="cityModel">
+                                    <div>{{ cityModel.Name }}</div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-city pTemplate="item">
+                                <div class="flex align-items-center gap-2">
+                                    <div>{{ city.Name }}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+
+                    <div *ngIf="IsUpdate" class="dropdown__section">
+                        <label class="label">Select a Hospital *</label>
+                        <p-dropdown class="dropdown" [options]="hospitalList" placeholder="Select a Hospital"
+                            formControlName="vendorId" [(ngModel)]="hospitalModel" optionLabel="BusinessName"
+                            [filter]="true" filterBy="BusinessName">
+                            <ng-template pTemplate="selectedItem">
+                                <div class="flex align-items-center gap-2" *ngIf="hospitalModel">
+                                    <div>{{ hospitalModel.BusinessName }}</div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-hospital pTemplate="item">
+                                <div class="flex align-items-center gap-2">
+                                    <div>{{ hospital.BusinessName }}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+
+                    <div class="dropdown__section">
+                        <label class="label">Select a Day *</label>
+                        <p-dropdown class="dropdown" placeholder="Select a Day *" [options]="WeekList" optionValue="id"
+                            formControlName="dayOfWeek" (onChange)="onChangedayOfWeek(i)" optionLabel="name"></p-dropdown>
+                    </div>
+
+                    <div class="dropdown__section">
+                        <label class="label">Select a Status *</label>
+                        <!-- [(ngModel)]="statusModel" -->
+                        <p-dropdown  class="dropdown" placeholder="Select a Status *"
+                            [options]="statusList" optionValue="id" formControlName="isStatus"
+                            optionLabel="name"></p-dropdown>
+                    </div>
+                    <!-- *ngIf="statusModel === 1" -->
+                    <div class="calendar__section" >
+                        <div class="left__time_picker">
+                            <label class="label">Select Starting Time *</label>
+                            <p-calendar class="time__picker" placeholder="Select Starting Time *" [showButtonBar]="true"
+                                formControlName="startTime" [timeOnly]="true" [showTime]="true"
+                                hourFormat="24"></p-calendar>
+                        </div>
+
+                        <div class="right__time_picker">
+                            <label class="label">Select Ending Time *</label>
+                            <p-calendar class="time__picker" placeholder="Select Ending Time *" [showButtonBar]="true"
+                                formControlName="endTime" [timeOnly]="true" [showTime]="true"
+                                hourFormat="24"></p-calendar>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div #scrollTarget class="m-top">
+            <button [disabled]="officeTimingInfoForm.invalid" class="login__btn"
+                [ngClass]="officeTimingInfoForm.invalid ? 'disabled' : 'enabled' ">
+                <span *ngIf="isLoading" class="spinner"></span>
+                Submit</button>
+        </div>
+
+
+
+    </form>
+</section>
+
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+<app-loader *ngIf="isLoaderLoading"></app-loader>
+
+<p-toast></p-toast>

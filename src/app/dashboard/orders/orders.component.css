@@ -1,0 +1,42 @@
+.table th{
+    position: sticky;
+      top: 0;
+      font-size: 0.9rem;
+      font-weight: 500;
+      height: 40px;
+      padding:7px;
+      vertical-align: middle;
+      z-index: 1;
+    }
+    .table tr td{
+      vertical-align: middle;
+      font-size: .8rem;
+      height: 40px;
+      padding: 8px;
+    }
+
+    .TextboxDiv  ng-select{
+  
+        height: 30px;
+        /* font-size: 12px; */
+     }
+
+     .ng-select.custom ::ng-deep .ng-select-container  {            
+        min-height: 30px;
+        height: 30px;
+        
+      } 
+
+      .TextboxDiv input{
+  
+        height: 30px;
+        /* font-size: 12px; */
+     }
+ hr{
+    margin:2px 0
+ }
+
+ .card-header{
+   background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,131,150,1) 75%);
+    color: white;
+ }

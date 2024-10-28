@@ -1,0 +1,49 @@
+<div class="card mb-5">
+    <div class="card-header d-flex justify-content-between align-items-center" style="padding: 6px 25px;">
+        <h4>All Promotions</h4>
+    </div>
+    <div style="min-height: 400px; max-height: 600px; overflow-y: scroll">
+        <div class="card-body">
+            
+                <div class="row" >
+                <div class="col-12">
+                    <mat-form-field class="form-field">
+                      <mat-label>Select Status</mat-label>
+            <mat-select  required (selectionChange)="changeStatus($event.value)">
+                      <mat-option *ngFor="let list of StatusList" [value]="list.id">
+                        {{list.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  </div>
+</div>
+
+
+<div>
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+    <app-skeleton *ngIf="isTableLoading == true"></app-skeleton>
+</div>
+<mat-card *ngIf="isTableLoading == false" class="child-card" style="margin-top: 5px;">
+<table  class="table table-response">
+<thead>
+<tr>
+  <th>Subject</th>
+<th>HowToAvail</th>
+<th>Description</th>
+
+</tr>
+</thead>
+<tbody>
+<tr *ngFor="let item of AllPromoz">
+  <td>{{item.Subject}}</td>
+<td>{{item.HowToAvail}}</td>
+<td>{{item.Description}}</td>
+</tr>
+
+</tbody>
+
+</table>
+</mat-card>
+
+</div>
+</div>

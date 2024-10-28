@@ -1,0 +1,113 @@
+<div class="card mb-5">
+    <div class="card-header d-flex justify-content-between align-items-center" style="padding: 6px 25px;">
+        <h4>Hospital followups</h4>
+        <!-- <button class="btn btn_icon">
+            <i class='bx bx-plus-circle'></i>
+            Add New</button> -->
+    </div>
+    <div style="min-height: 400px; max-height: 600px; overflow-y: scroll">
+        <div class="card-body">
+            <div class="filters">
+                <div style="width: 100%;">
+                    <p-dropdown class="slot__dropdown" (onChange)="changeCityForHospitals($event.value)"
+                        [options]="CitiesList" [(ngModel)]="cityModel" optionLabel="Name" [filter]="true"
+                        filterBy="Name" placeholder="Select a City">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="flex align-items-center gap-2" *ngIf="cityModel">
+                                <div>{{ cityModel.Name }}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-country pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                <div>{{ country.Name }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+
+                <div style="width: 100%;">
+                    <p-dropdown class="slot__dropdown" [disabled]="enableHospitalItem" (onChange)="changeHospitalForDoctor($event.value)"
+                        [options]="vendorsListByCity" placeholder="Select a Hospital"
+                        [(ngModel)]="doctorVendorModel" optionLabel="BusinessName" [filter]="true"
+                        filterBy="BusinessName">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="flex align-items-center gap-2" *ngIf="doctorVendorModel">
+                                <div>{{ doctorVendorModel.BusinessName }}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-hospital pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                <div>{{ hospital.BusinessName }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+
+         
+            </div>
+
+            <div style="margin-top: 5px;">
+                <button (click)="GetRemarks()" style="width: 100%;" mat-raised-button>Search Remarks</button>
+            </div>
+            <div style="margin-top: 5px;">
+                <mat-accordion >
+          
+                    <mat-expansion-panel (opened)="panelOpenState = true"
+                                         (closed)="panelOpenState = false">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Enter new Remarks here
+                        </mat-panel-title>
+                        <!-- <mat-panel-description>
+                          Currently I am {{panelOpenState ? 'open' : 'closed'}}
+                        </mat-panel-description> -->
+                      </mat-expansion-panel-header>
+                      <form [formGroup]="reamrksForm">
+                        <textarea style="height: 100px;width: 100%;padding: 15px;" formControlName="remarks" placeholder="Enter your remarks..."></textarea>
+                      </form>
+                      <div style="margin-top: 5px;display: flex;justify-content: flex-end;">
+                        <button (click)="AddVendorRemarks()"  mat-raised-button>Submit</button>
+                    </div>
+                    </mat-expansion-panel>
+                  
+                  </mat-accordion>
+                
+               
+                </div>
+         
+              
+
+            <div class="main" *ngIf="isTableLoading == false">
+                <mat-card class="remarksBox" *ngFor="let item of RemarksList">
+                
+                    <div class="RemarkHeader">
+                <div class="avatarset">
+                    <span>
+                        <img src="assets/agent.png" alt="Avatar" class="avatar">
+                    </span>
+                    <span style="margin-left: 5px;">{{item.Operations.Name}}</span>
+                </div>
+                <div style="font-weight: 400;font-size: 10px;">{{item.createdOn | date}}</div>
+                    </div>
+                
+                   <div class="remarksMain"> 
+                    <div class="RemarkContent">
+                  {{item.remarks}}
+                    </div>
+                    <!-- <i matTooltip="download file" class="downloadIcon"  class="bi bi-cloud-download"></i> -->
+                </div>
+                </mat-card>
+                </div>
+
+
+
+            <div style="margin-top: 10px;">
+                <!-- <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar> -->
+                <app-skeleton *ngIf="isTableLoading"></app-skeleton>
+            </div>
+
+            </div>
+            </div>
+    </div>
+
+    <p-toast></p-toast>

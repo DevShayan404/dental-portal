@@ -1,0 +1,81 @@
+
+
+<section [@slideInOut] *ngIf="!isLoaderLoading">
+    <div class="add_btn__section" *ngIf="!isUpdate">
+        <button class="add__btn" (click)="addItem()">
+            <i class='bx bxs-folder-plus' ></i>
+            Add New Experience</button>
+    </div>
+
+
+    <form   [formGroup]="experienceInfoForm" class="form__section" (ngSubmit)="confirmationExperienceInfo()">
+        <div class="container__section">
+            <div  formArrayName="itemsArray" *ngFor="let item of getControls(); let i = index;">
+                
+                <div [formGroupName]="i" class="experience__section">
+    
+                    <div class="experience__title__div">
+                        <div>
+                            <h5>Experience Details: {{i+1}}</h5>
+                        </div>
+                        <div *ngIf="!isUpdate">
+                            <button (click)="removeExperience(i)" class="remove__btn">
+                                <i class='bx bxs-trash'></i>
+                                Remove</button>
+                        </div>
+                    </div>
+                    <div class="input_text_field">
+                        <label class="label">Enter Hospital Name *</label>
+                        <div class="p-input-icon-left p-input-icon-right">
+                            <i class="bx bx-plus-medical" style="color: #6c7689;"></i>
+                            <input type="text" pInputText
+                                formControlName="hospitalName" />
+                            <i [ngClass]="itemsArray.length > i ? (itemsArray.controls[i].get('hospitalName')?.hasError('required') ? 'fas fa-asterisk' : 'fas fa-check') : ''"></i>
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="col">
+                            <div class="input_text_field">
+                        <label class="label">Select Starting Date *</label>
+                                <p-calendar [showButtonBar]="true"  view="month" (onSelect)="onDateSelectStart($event)" dateFormat="mm/yy"
+                                    [readonlyInput]="true" formControlName="startDate" 
+                                    [showIcon]="true" ></p-calendar>
+                            </div>
+                        </div>
+    
+                        <div class="col">
+                            <div class="input_text_field">
+                        <label class="label">Select Ending Date *</label>
+                                <p-calendar [showButtonBar]="true" view="month" dateFormat="mm/yy"
+                                    [readonlyInput]="true" (onSelect)="onDateSelectEnd($event)" formControlName="endDate" 
+                                    [showIcon]="true"></p-calendar>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+    
+            </div>
+        </div>
+        
+
+        <div class="m-top" *ngIf="!isUpdate">
+            <button [disabled]="experienceInfoForm.invalid" class="login__btn" [ngClass]="experienceInfoForm.invalid ? 'disabled' : 'enabled' ">
+                <span *ngIf="isLoading" class="spinner"></span>
+                Next</button>
+        </div>
+
+
+        <div class="m-top" *ngIf="isUpdate">
+            <button [disabled]="experienceInfoForm.invalid" class="login__btn" [ngClass]="experienceInfoForm.invalid ? 'disabled' : 'enabled' ">
+                <span *ngIf="isLoading" class="spinner"></span>
+                Update</button>
+        </div>
+        
+       
+    </form>
+</section>
+
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+<app-loader *ngIf="isLoaderLoading"></app-loader>

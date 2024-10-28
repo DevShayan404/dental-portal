@@ -1,0 +1,76 @@
+<div class="card mb-5">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4>All Cities</h4>
+     
+        <button class="btn" (click)="handleAddEditCities(0)">
+            <i class='bx bx-plus-circle'></i> Add New
+        </button>
+    </div>
+    <div style="min-height: 400px; max-height: 700px; overflow-y: scroll" *ngIf="dataSource; else loading">
+        <div class="card-body" *ngIf="dataSource; else notFound">
+
+            <div class="input__field">
+                <mat-form-field>
+                    <mat-label>Search City</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. City Name" #input>
+                </mat-form-field>
+            </div>
+
+            <div class="mat-elevation-z8 table">
+                <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+
+                <table mat-table [dataSource]="dataSource" matSort matSortActive="Name" matSortDirection="asc">
+
+                    <ng-container matColumnDef="Name">
+                        <th class="table__head" mat-header-cell *matHeaderCellDef mat-sort-header>Name </th>
+                        <td class="table_section" mat-cell *matCellDef="let row">{{row.Name}}</td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="Action">
+                        <th class="table__head" mat-header-cell *matHeaderCellDef>Action</th>
+                        <td class="table_section" mat-cell *matCellDef="let row">
+                            <div class="mat__input">
+                                <!-- <button class="btn edit_btn" (click)="handleAddEditCities(row)">
+                                    <i class="fas fa-edit"></i>
+                                </button> -->
+                                <button (click)="deleteCity(row.Id)" class="btn delete_btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator> -->
+</div>
+
+
+<ng-template #loading>
+    <div class="not__found">
+        <img src="../../../../../assets/img/loader.gif" alt="not found" />
+        <div class="not-found__text">
+            <h1>Loading...</h1>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #notFound>
+    <div class="not__found">
+        <img src="../../../../../assets/img/not-found.jpg" alt="not found" />
+        <div class="not-found__text">
+            <h1>Data Not Found</h1>
+        </div>
+    </div>
+</ng-template>
+    <p-toast></p-toast>

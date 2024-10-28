@@ -1,0 +1,229 @@
+<div mat-dialog-title class="title" >
+    {{inputdata.title}}
+  
+<div style="margin-left: auto;"><i [mat-dialog-close]="closemessage" class="bi bi-x-lg"></i></div>
+</div>
+<div mat-dialog-content class="MainContent">
+    <!-- <form [formGroup]="SetFeeForm"> -->
+        <div class="row">
+          <div  class="col-4 colSet">
+            <div>
+                <ng-select [loading]="!CitiesList" [clearable]="false"  (change)="changeCity($event)" [ngClass]="'custom-placeholder'"  [placeholder]="'Select City'">
+                    <ng-option  *ngFor="let City of CitiesList" [value]="City.Id">{{City.Name}}</ng-option>
+                 </ng-select>
+            </div>
+         
+        </div>
+
+          <div   class="col-4 colSet">
+            <div>
+                <ng-select [loading]="!vendorsListByCity" [readonly]="!vendorsListByCity" (change)="changeVendor($event)"  [clearable]="false"   [ngClass]="'custom-placeholder'"  [placeholder]="'Select Hospital'">
+                    <ng-option  *ngFor="let vedor of vendorsListByCity" [value]="vedor.Id">{{vedor.BusinessName}}</ng-option>
+                 </ng-select>
+            </div>
+          </div>
+
+          <div class="col-4 colSet">
+            <div>
+                <ng-select [loading]="!AllDoctorList"  [clearable]="false" (change)="changeDoctor($event)"   [ngClass]="'custom-placeholder'"  [placeholder]="'Select doctor'">
+                    <ng-option  *ngFor="let dr of AllDoctorList" [value]="dr">{{dr.DoctorName}}</ng-option>
+                 </ng-select>
+            </div>
+        
+          </div>
+
+          <div class="col-12" style="margin-top: 10px;">
+            <mat-card *ngIf="ShowDate == true" class="parent" style="margin-top: 10px;">
+              <div class="AssignBusiines"><i class="bi bi-clock-history"></i> Appointment for</div> 
+              <div class="dateTab">
+                <mat-chip-listbox  aria-label="Fish selection">
+                  <div *ngFor="let rel of SomeOneElseList; index as Sindex">
+                    <mat-chip-option (click)="getRelation(rel)">{{rel.Relation}}</mat-chip-option>
+                  </div>
+                  
+                </mat-chip-listbox>
+             </div>
+            </mat-card>
+            </div>
+         
+          <div class="col-12" style="margin-top: 10px;">
+          <mat-card *ngIf="ShowDate == true" class="parent" style="margin-top: 10px;">
+            <div class="AssignBusiines"><i class="bi bi-calendar-week"></i> Available dates</div> 
+            <div class="dateTab">
+              <div *ngFor="let date of FilterSlotDates; index as Dindex">
+           <div (click)="handleAppointments(date)"  (click)="DateOnTabClick(date)" [ngClass]="{ active: CalenderTabIndex === date }" class="tab">{{date | date}}</div>
+              </div>
+           </div>
+            </mat-card>
+          </div>
+          <div class="col-12" style="margin-top: 10px;">
+            <mat-card *ngIf="ShowSLot == true" class="parent" style="margin-top: 10px;">
+              <div class="AssignBusiines"><i class="bi bi-clock-history"></i> Available Slots</div> 
+              <div class="dateTab">
+                <div *ngFor="let date of SlotTime; index as Sindex">
+             <div  (click)="SlotOnTabClick(Sindex)" (click)="GetSlotTime(date.Appointment)"  [ngClass]="{ active: SlotTabIndex === Sindex }" class="tab">{{date.Appointment | date:'shortTime'}}</div>
+                </div>
+                <!-- (click)="handleAppointments(date)"  -->
+             </div>
+            </mat-card>
+            </div>
+            
+          <div *ngIf="ShowCard == true" class="col-12 d-flex justify-content-center" style="margin-top: 10px;">
+            <div class="card-footer">
+              <div class="card-footer-div">
+                <strong
+                  ><i class="bx bx-wallet"></i> Select Payment Method</strong
+                >
+                <button *ngIf="cardList.length > 0" (click)="openCardForm()">
+                  <span *ngIf="!cardFormOpen">Add Card</span>
+                  <span *ngIf="cardFormOpen">Back</span>
+                </button>
+              </div>
+              <div class="showCardForm" *ngIf="cardFormOpen">
+                <div class="sub-footer">
+                  <span
+                    ><input type="radio" checked />Pay via Credit / Debit
+                    Card</span
+                  >
+                  <span>
+                    <img src="assets\masterCard.png" alt="" />
+                    <img src="assets\visaCard.png" alt="" />
+                  </span>
+                </div>
+
+                <div class="cartMain">
+                  <strong>Enter Your Cart Details</strong>
+                  <form
+                    [formGroup]="creditCartForm"
+                    (ngSubmit)="submitCreditCartForm(creditCartForm.value)"
+                  >
+                    <div class="cart__form">
+                      <img
+                        src="assets\defaultCart.png"
+                        id="cardTypeIcon"
+                        alt="Card Type Icon"
+                      />
+                      <input
+                        type="number"
+                        class="cart__form__input"
+                        [ngClass]="creditCartForm.get('cartNumber')?.touched && creditCartForm.get('cartNumber')?.errors?.['required'] ? 'cartFormInputActive' : 'cart__form__input' "
+                        autocomplete="off"
+                        placeholder=" "
+                        formControlName="cartNumber"
+                       
+                      />
+                      <label
+                        for="Designation"
+                        class="cart__form__label"
+                        [ngClass]="creditCartForm.get('cartNumber')?.touched && creditCartForm.get('cartNumber')?.errors?.['required'] ? 'cartFormLabelActive' : 'cart__form__label' "
+                        >Card Number</label
+                      >
+                    </div>
+                    <div class="cart__form">
+                      <input
+                        type="text"
+                        [ngClass]="creditCartForm.get('cartHolderName')?.touched && creditCartForm.get('cartHolderName')?.errors?.['required'] ? 'cartFormInputActive' : 'cart__form__input' "
+                        autocomplete="off"
+                        placeholder=" "
+                        formControlName="cartHolderName"
+                      />
+                      <label
+                        for="Designation"
+                        [ngClass]="creditCartForm.get('cartHolderName')?.touched && creditCartForm.get('cartHolderName')?.errors?.['required'] ? 'cartFormLabelActive' : 'cart__form__label' "
+                        >Card Holder Name</label
+                      >
+                    </div>
+                    <div class="cart-input">
+                      <div class="cart__form">
+                        <input
+                          type="text"
+                          [ngClass]="creditCartForm.get('mmyy')?.touched && creditCartForm.get('mmyy')?.errors?.['required'] ? 'cartFormInputActive' : 'cart__form__input' "
+                          autocomplete="off"
+                          placeholder=" "
+                          formControlName="mmyy"
+                          (input)="onMMYYInput($event)"
+                        />
+                        <label
+                          for="Designation"
+                          [ngClass]="creditCartForm.get('mmyy')?.touched && creditCartForm.get('mmyy')?.errors?.['required'] ? 'cartFormLabelActive' : 'cart__form__label' "
+                          >MMYY</label
+                        >
+                      </div>
+                      <div class="cart__form">
+                        <input
+                          type="text"
+                          [ngClass]="creditCartForm.get('cvv')?.touched && creditCartForm.get('cvv')?.errors?.['required'] ? 'cartFormInputActive' : 'cart__form__input' "
+                          autocomplete="off"
+                          placeholder=" "
+                          formControlName="cvv"
+                        
+                        />
+                        <label
+                          for="Designation"
+                          [ngClass]="creditCartForm.get('cvv')?.touched && creditCartForm.get('cvv')?.errors?.['required'] ? 'cartFormLabelActive' : 'cart__form__label' "
+                          >CVV</label
+                        >
+                      </div>
+                    </div>
+                    <div class="saveCard">
+                      <input type="checkbox" (click)="saveCart()" />
+                      <label>Save Card</label>
+                    </div>
+
+                    <!-- <button
+                    [ngClass]="{
+                      creditFormButton: creditCartForm.valid,
+                      creditFormVButtonActive: creditCartForm.invalid
+                    }"
+                  >
+                  <span *ngIf="cartSave">Save Cart</span>
+                    <span  *ngIf="!cartSave">Confirm</span>
+                  </button> -->
+                  </form>
+                </div>
+              </div>
+              <div class="showCardForm" *ngIf="!cardFormOpen">
+                <div class="sub-footer" *ngFor="let list of cardList">
+                  <span
+                    ><input
+                      type="radio"
+                      [(ngModel)]="selectedCard"
+                      [value]="list.Id"
+                      (click)="selectCard(list)"
+                    />{{ list.CardNumber }}</span
+                  >
+                  <span>
+                    <img
+                      *ngIf="list.CardType === 'mastercard'"
+                      src="assets\Images\masterCard.png"
+                      alt=""
+                    />
+                    <img
+                      *ngIf="list.CardType === 'visa'"
+                      src="assets\Images\visaCard.png"
+                      alt=""
+                    />
+                    <img
+                      *ngIf="
+                        list.CardType !== 'visa' &&
+                        list.CardType !== 'mastercard'
+                      "
+                      src="assets/Images/defaultCart.png"
+                      alt=""
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+           
+
+    </div>
+<!-- </form> -->
+
+</div>
+<div mat-dialog-actions align="end">
+<!-- <button [mat-dialog-close]="closemessage" mat-raised-button>close</button> -->
+<button  style="width: 100%;" (click)="savedata()" mat-raised-button>Submit Appointment</button>
+<!-- [disabled]="!SetFeeForm.valid" -->
+</div>

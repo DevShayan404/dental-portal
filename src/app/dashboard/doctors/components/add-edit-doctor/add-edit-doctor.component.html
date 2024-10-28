@@ -1,0 +1,9 @@
+<div class="modal_section">
+    
+    <p-steps *ngIf="!isUpdateUser" class="step__form" [model]="items" [readonly]="true"></p-steps>
+    
+    <div class="stepper__container">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<p-toast></p-toast>

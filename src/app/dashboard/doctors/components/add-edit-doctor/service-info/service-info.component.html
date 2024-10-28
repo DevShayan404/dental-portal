@@ -1,0 +1,70 @@
+<section [@slideInOut] *ngIf="!isLoaderLoading">
+    <div class="add_btn__section">
+        <button class="add__btn" (click)="addItem()" *ngIf="!isUpdate">
+            <i class='bx bxs-folder-plus' ></i>
+            Add New Service</button>
+    </div>
+
+
+    <form [formGroup]="serviceInfoForm" class="form__section" (ngSubmit)="confirmationServiceInfo()">
+        <div class="container__section">
+            <div formArrayName="itemsArray" *ngFor="let item of getControls(); let i = index;">
+                <div [formGroupName]="i" class="experience__section">
+
+                    <div class="title__div">
+                        <div>
+                            <h5>Service Details: {{i+1}} </h5>
+                        </div>
+                        <div *ngIf="!isUpdate">
+                            <button (click)="removeService(i)" class="remove__btn">
+                                <i class='bx bxs-trash'></i>
+                                Remove</button>
+                        </div>
+                    </div>
+
+                    
+                    <div class="input_text_field">
+                        <label class="label">Select a Service *</label>
+                        <div class="p-input-icon-left p-input-icon-right">
+                            <p-dropdown placeholder="Select a Service" formControlName="serviceId" optionValue="ServiceId"
+                                [options]="serviceList" optionLabel="Name"></p-dropdown>
+                        </div>
+                    </div>
+                    <div class="input_text_field">
+                        <label class="label">Enter Fees *</label>
+                        <div class="p-input-icon-left p-input-icon-right">
+                            <i class='bx bxs-badge-dollar ' style="color: #6c7689;"></i>
+                            <input placeholder="Enter Fees" type="text" pInputText formControlName="fees" />
+                            <i
+                                [ngClass]="itemsArray.controls[i].get('fees')?.hasError('required') 
+                                || itemsArray.controls[i].get('fees')?.hasError('pattern')? 'fas fa-asterisk' : 'fas fa-check'"></i>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        
+        
+
+
+        <div class="m-top" *ngIf="!isUpdate">
+            <button [disabled]="serviceInfoForm.invalid" class="login__btn"
+                [ngClass]="serviceInfoForm.invalid ? 'disabled' : 'enabled' ">
+                <span *ngIf="isLoading" class="spinner"></span>
+                Submit</button>
+        </div>
+
+        <div class="m-top" *ngIf="isUpdate">
+            <button [disabled]="serviceInfoForm.invalid" class="login__btn"
+                [ngClass]="serviceInfoForm.invalid ? 'disabled' : 'enabled' ">
+                <span *ngIf="isLoading" class="spinner"></span>
+                Update</button>
+        </div>
+    </form>
+</section>
+
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+<app-loader *ngIf="isLoaderLoading"></app-loader>

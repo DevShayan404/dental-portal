@@ -1,0 +1,232 @@
+
+
+<section [@slideInOut]>
+    <!-- <div class="radio__section">
+        <div class="radio__btn">
+            <p-radioButton (ngModelChange)="handleToggleRegistrationRadioEvent($event)" name="personalClinic" value="1"
+                [(ngModel)]="registrationModel" inputId="registrationId"></p-radioButton>
+            <label for="registrationId" class="ml-2">Personal Clinic</label>
+        </div>
+
+        <div class="radio__btn">
+            <p-radioButton (ngModelChange)="handleToggleRegistrationRadioEvent($event)" name="hospital" value="2"
+                [(ngModel)]="registrationModel" inputId="registrationId"></p-radioButton>
+            <label for="registrationId" class="ml-2">Hospital</label>
+        </div>
+    </div> -->
+
+
+    <div *ngIf="isAdd" class="back__icon" (click)="backtoParentPage()" pTooltip="Back to Page">
+        <i class="pi pi-angle-double-left"></i>
+    </div>
+
+    <form [formGroup]="hospitalInfoForm" (ngSubmit)="confirmationSignup()">
+
+        <!-- <div class="avatar-upload">
+                    <div class="avatar-edit">
+                        <input type='file' id="imageUpload" (change)="onUpload($event)" accept=".png, .jpg, .jpeg" />
+                        <label for="imageUpload"></label>
+                    </div>
+                    <div class="avatar-preview">
+                        <div 
+                        [style]="hospitalIcon ?? hospitalIcon"
+                        id="imagePreview">
+                        </div>
+                    </div>
+                </div> -->
+
+        <div class="input_text_field">
+            <label class="label">Select a City *</label>
+            <div class="p-input-icon-left p-input-icon-right">
+                <p-dropdown class="slot__dropdown" [options]="citiesList" placeholder="Select a City"
+                    formControlName="cityId" [(ngModel)]="cityModel" optionLabel="Name" [filter]="true" filterBy="Name">
+                    <ng-template pTemplate="selectedItem">
+                        <div class="flex align-items-center gap-2" *ngIf="cityModel">
+                            <div>{{ cityModel.Name }}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-city pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            <div>{{ city.Name }}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+        </div>
+
+        <div class="input__full">
+            <div class="input_text_field">
+                <label class="label">Enter Business Name *</label>
+
+                <div class="p-input-icon-left p-input-icon-right">
+                    <i class="bx bxs-business" style="color: #6c7689;"></i>
+                    <input type="text" pInputText formControlName="businessName" />
+                    <i
+                        [ngClass]="validateVendorControls('businessName', 'required') ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="input_text_field">
+                    <label class="label">Enter Address 1 *</label>
+
+                    <div class="p-input-icon-left p-input-icon-right">
+                        <i class="fas fa-location-arrow" style="color: #6c7689;"></i>
+                        <input type="text" pInputText formControlName="address1" />
+                        <i
+                            [ngClass]="validateVendorControls('address1', 'required')  ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="input_text_field">
+                    <label class="label">Enter Address 2 *</label>
+                    <div class="p-input-icon-left p-input-icon-right">
+                        <i class="fas fa-location-arrow" style="color: #6c7689;"></i>
+                        <input type="text" pInputText formControlName="address2" />
+                        <i
+                            [ngClass]="validateVendorControls('address2', 'required')  ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="input__full">
+            <div class="input_text_field">
+                <label class="label">Enter Cell Phone Number *</label>
+                <div class="p-input-icon-left p-input-icon-right">
+                    <i class="bx bx-phone-call" style="color: #6c7689;"></i>
+                    <p-inputMask mask="(999) 999-9999" formControlName="phoneNumber"></p-inputMask>
+                    <i
+                        [ngClass]="validateVendorControls('phoneNumber', 'required') ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="input__full">
+            <div class="input_text_field">
+                <label class="label">Enter Email *</label>
+                <div class="p-input-icon-left p-input-icon-right">
+                    <i class="bx bx-mail-send" style="color: #6c7689;"></i>
+                    <input type="text" pInputText formControlName="email" />
+                    <i [ngClass]="validateVendorControls('email', 'required') ||
+                    validateVendorControls('email', 'email') ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+                </div>
+                <small *ngIf=" validateVendorControls('email', 'email')" id="username-help">Email
+                    Pattern
+                    Required</small>
+            </div>
+        </div>
+
+        <div class="flex__div" *ngIf="isUpdateHospital">
+            <div class="full__width mr">
+                <div class="input_text_field">
+                    <label class="label">Enter Primary Url Link *</label>
+                    <div class="p-input-icon-left p-input-icon-right">
+                        <i class="bx bx-link" style="color: #6c7689;"></i>
+                        <input type="text" pInputText formControlName="link1" />
+                        <i
+                            [ngClass]="validateVendorControls('link1', 'required') ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="full__width ml">
+                <div class="input_text_field">
+                    <label class="label">Enter Secondary Url Link *</label>
+                    <div class="p-input-icon-left p-input-icon-right">
+                        <i class="bx bx-link" style="color: #6c7689;"></i>
+                        <input type="text" pInputText
+                            formControlName="link2" />
+                        <i
+                            [ngClass]="validateVendorControls('link2', 'required') ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="input__full" *ngIf="isUpdateHospital">
+            <div class="input_text_field">
+                <label class="label">Write About Us</label>
+                <div class="p-input-icon-left p-input-icon-right">
+                    <!-- <i class="bx bx-mail-send" style="color: #6c7689;"></i> -->
+                    <textarea rows="3" cols="30" pInputTextarea
+                        formControlName="aboutme"></textarea>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="loggedIn">
+            <mat-form-field style="width: 100%;">
+              <mat-label>Select Status</mat-label>
+    <mat-select  required  formControlName="Status">
+              <mat-option *ngFor="let list of StatusList" [value]="list.Id">
+                {{list.Status}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          </div>
+
+<div> 
+    <label class="label">Upload Logo</label>
+    <input class="form-control" type="file" (change)="onFileSelected($event)" >
+</div>
+
+
+
+
+
+
+
+        <div class="map__div">
+            <div (click)="handleMapDialog()" class="map__btn">
+                <i class='bx bxs-map-pin'></i>
+                Select Location From Maps *
+            </div>
+        </div>
+
+        <div class="m-top" *ngIf="isUpdateHospital">
+            <button [disabled]="hospitalInfoForm.invalid" class="login__btn"
+                [ngClass]="hospitalInfoForm.invalid ? 'disabled' : 'enabled' ">
+                <span *ngIf="isLoading" class="spinner"></span>
+                Update</button>
+        </div>
+
+        <div class="m-top" *ngIf="!isUpdateHospital">
+            <button [disabled]="hospitalInfoForm.invalid" class="login__btn"
+                [ngClass]="hospitalInfoForm.invalid ? 'disabled' : 'enabled' ">
+                <span *ngIf="isLoading" class="spinner"></span>
+                {{isAdd ? 'Next' : 'Sign up'}}</button>
+            <div class="registration__section" *ngIf="!isAdd">
+                <p>Already have an account?</p>
+                <a routerLink="/authentication/login" class="register_tag">Login</a>
+            </div>
+        </div>
+    </form>
+
+</section>
+
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+
+
+<p-dialog header="Maps" [(visible)]="visible" [modal]="true" [style]="{ width: '80vw' }" [draggable]="false"
+    [resizable]="false">
+
+    <google-map width="100%" height="30rem" [options]="mapOptions" [center]="mapCenter"
+        (mapClick)="handleMapEvent($event)">
+        <map-marker [position]="markerPosition">
+            <div class=" d-flex justify-center">
+                <input style="width:50%;margin-top: 10px;" #mapSearchField type="text" class="form-control"  id="exampleFormControlInput1" placeholder="Search Google Maps">
+          </div>
+        </map-marker>
+    </google-map>
+
+    <!-- {{lat}}
+    {{long}} -->
+
+
+    <div class="map_geographical__div">
+        <button class="login__btn enabled" (click)="handleConfirmLocation()"> Confirm Location </button>
+    </div>
+</p-dialog>

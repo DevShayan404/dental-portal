@@ -1,0 +1,40 @@
+<div class="row">
+<div class="col-12">
+    <mat-card class="TableCard" *ngIf="isTableLoading == false"  style="margin-top: 15px;">
+      <table class="table table-response">
+      <thead>
+      <tr>
+          <th>Hospital name</th>
+      <th>DoctorName</th>
+      <th>DoctorContact</th>
+      <th>Fees</th>
+      <th>Appointment date</th>
+      <th>Appointment status</th>
+      <th>Hospital contact</th>
+      <th>Patient name</th>
+      <th>Patient remark</th>
+      <th><i class="bi bi-three-dots-vertical"></i></th>
+      
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of AppointmentsList">
+          <td>{{item.HospitalName}}</td>
+      <td>{{item?.DoctorName}}</td>
+      <td>{{item.DoctorContact}} </td>
+      <td>{{item.DoctorFinalFees | currency}}</td>
+      <td>{{item.Appointment | date }}</td>
+      <td>{{item.AppointmentStatusName}}</td>
+      <td>{{item.HospitalContact}}</td>
+      <td>{{item.PatientName}}</td>
+      <td>{{item.PatientRemarks}}</td>
+      <!-- (click)="EditFee(item)" -->
+      <td> <i class="bi bi-eye"></i> </td>
+      </tr>
+      
+      </tbody>
+      
+      </table>
+      </mat-card>
+  </div>
+</div>

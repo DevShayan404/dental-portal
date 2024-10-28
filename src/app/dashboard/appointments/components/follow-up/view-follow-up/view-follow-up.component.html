@@ -1,0 +1,166 @@
+<div class="card mb-5">
+    <div class="card-header d-flex justify-content-between align-items-center" style="padding: 6px 25px;">
+        <h4>Follow Up List</h4>
+        <!-- <button class="btn btn_icon" (click)="handleAddEditFollowUpOperation(0)">
+            <i class='bx bx-plus-circle'></i>
+            Add New</button> -->
+    </div>
+    <div style="min-height: 400px; max-height: 600px; overflow-y: scroll">
+        <div class="card-body">
+
+            <div class="filters">
+                <div class="flex-1">
+                    <div>
+                        <p-calendar [touchUI]="true" placeholder="Select a Date" [(ngModel)]="date"
+                            dateFormat="yy/mm/dd" [showIcon]="true"></p-calendar>
+                    </div>
+
+                    <div>
+                        <p-dropdown class="search__dropdown" [options]="visitStatusList"
+                            placeholder="Select a Visit Status" [(ngModel)]="visitStatusModel" optionLabel="name"
+                            [filter]="true" filterBy="name">
+                            <ng-template pTemplate="selectedItem">
+                                <div class="flex align-items-center gap-2" *ngIf="visitStatusModel">
+                                    <div>{{ visitStatusModel.name }}</div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-doctor pTemplate="item">
+                                <div class="flex align-items-center gap-2">
+                                    <div>{{ doctor.name }}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                </div>
+
+                <div class="flex-2">
+                    <button class="btn search_icon" (click)="getallFollowUpList()">
+                        <i class='bx bx-search-alt-2'></i>
+                        Search</button>
+                </div>
+            </div>
+
+            <div>
+                <div class="mat-elevation-z8 table">
+
+                    <div>
+                        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+                        <app-skeleton *ngIf="isTableLoading"></app-skeleton>
+                    </div>
+
+
+                    <table *ngIf="!isTableLoading" mat-table [dataSource]="dataSource">
+
+                        <ng-container matColumnDef="DoctorName">
+                            <th class="table__head" mat-header-cell *matHeaderCellDef>Doctor Name</th>
+                            <td class="table_section" mat-cell *matCellDef="let row">
+                                {{row?.DoctorVendor?.Doctor?.InitialName + ' ' + row?.DoctorVendor?.Doctor?.FirstName +
+                                ' ' +
+                                row?.DoctorVendor?.Doctor?.LastName}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="PatientName">
+                            <th class="table__head" mat-header-cell *matHeaderCellDef>Patient Name</th>
+                            <td class="table_section" mat-cell *matCellDef="let row"> {{row?.Patient?.Name}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="PatientPhoneNumber">
+                            <th class="table__head" mat-header-cell *matHeaderCellDef>Patient Phone Number</th>
+                            <td class="table_section" mat-cell *matCellDef="let row"> {{row?.Patient?.PhoneNumber}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Appointment">
+                            <th class="table__head" mat-header-cell *matHeaderCellDef>Booked Appointment Date</th>
+                            <td class="table_section" mat-cell *matCellDef="let row"> {{row?.Appointment | date :
+                                'medium'}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="HopsitalName">
+                            <th class="table__head" mat-header-cell *matHeaderCellDef>Hospital Name</th>
+                            <td class="table_section" mat-cell *matCellDef="let row">
+                                {{row?.DoctorVendor?.Vendor?.BusinessName}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="finalFees">
+                            <th class="table__head" mat-header-cell *matHeaderCellDef>Fees</th>
+                            <td class="table_section" mat-cell *matCellDef="let row"> {{row?.finalFees}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Remarks">
+                            <th class="table__head" mat-header-cell *matHeaderCellDef>Remarks</th>
+                            <td class="table_section" mat-cell *matCellDef="let row">
+                                <!-- <button class="btn view__remarks" pTooltip="View Hospital Profile" tooltipPosition="bottom"
+                                    (click)="handleViewRemarksInfo(row)">
+                                    <i class='bx bx-user-circle'></i>
+                                </button> -->
+                                <p class="highlight">{{row?.DoctorRemarks ?? 'No Remarks Available'}}</p>
+                            </td>
+                        </ng-container>
+
+                        <!-- <ng-container matColumnDef="PatientCallStatus">
+                            <th class="table__head" mat-header-cell *matHeaderCellDef>Patient Call Status</th>
+                            <td class="table_section" mat-cell *matCellDef="let row">
+                                <div [ngClass]="row?.PatientCallStatus === 1 ? 'green' : 'red'" class="status">
+                                    {{row?.DoctorCallStatus === 1 ? 'Done' : 'Pending'}}
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="DoctorCallStatus">
+                            <th class="table__head" mat-header-cell *matHeaderCellDef>Doctor Call Status</th>
+                            <td class="table_section " mat-cell *matCellDef="let row">
+                                <div [ngClass]="row?.DoctorCallStatus === 1 ? 'green' : 'red'" class="status">
+                                    {{row?.DoctorCallStatus === 1 ? 'Done' : 'Pending'}}
+                                </div>
+                            </td>
+                        </ng-container> -->
+
+                        <ng-container matColumnDef="VisitStatus">
+                            <th class="table__head" mat-header-cell *matHeaderCellDef>Visit Status</th>
+                            <td class="table_section" mat-cell *matCellDef="let row">
+                                <div [ngClass]="row?.VisitStatus === 1 ? 'green' : 'red'" class="status">
+                                    {{row?.VisitStatus === 1 ? 'Visited' : 'Non-Visited'}}
+                                </div>
+
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Actions">
+                            <th class="table__head" mat-header-cell *matHeaderCellDef>Actions</th>
+                            <td class="table_section" mat-cell *matCellDef="let row">
+                                <div class="mat__input">
+
+                                    <button class="btn edit_btn" pTooltip="Edit User" tooltipPosition="bottom"
+                                        (click)="handleAddEditFollowUpOperation(row)">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="4">No data matching the filter</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator> -->
+</div>
+<p-toast></p-toast>
+
+
+
+<p-dialog header="Remarks" [(visible)]="visible" [modal]="true" [style]="{ width: '80vw' }" [draggable]="false"
+    [resizable]="false">
+
+    <div>
+        <p>{{remarks}}</p>
+    </div>
+</p-dialog>

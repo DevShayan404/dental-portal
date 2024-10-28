@@ -1,0 +1,136 @@
+<div class="row">
+  <div class="col-12">
+    <form
+      [formGroup]="SetSearchFields"
+      (ngSubmit)="SearchRecord(SetSearchFields)"
+    >
+      <div class="editTextfield">
+        <mat-select formControlName="option" required placeholder="Select role">
+          <mat-option *ngFor="let role of AllRoles" [value]="role.Id">
+            {{ role.roleName }}
+          </mat-option>
+        </mat-select>
+
+        <mat-divider style="height: 40px" [vertical]="true"></mat-divider>
+
+        <input
+          formControlName="keyword"
+          type="text"
+          placeholder="Search here by hospital name or patient name..."
+        />
+
+        <div (click)="SearchRecord(SetSearchFields)" class="searchbtn">
+          <i class="bi bi-search"></i>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="masterImg" *ngIf="showlogo == true">
+    <img src="assets/master.jpg" alt="" />
+  </div>
+
+  <div class="masterImg" *ngIf="isTableLoading == true && showlogo == false">
+    <app-loader2></app-loader2>
+  </div>
+</div>
+
+<mat-card
+  class="TableCard"
+  *ngIf="isTableLoading == false"
+  style="margin-top: 15px"
+>
+  <table
+    *ngIf="source == '1' || source == '3'"
+    class="table hospital table-response"
+  >
+    <thead>
+      <tr>
+        <th>Hospital</th>
+        <th>Phone number</th>
+        <th>Email</th>
+        <th>Source</th>
+        <th><i class="bi bi-gear"></i></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let item of SearchRecordList">
+        <tr *ngIf="item?.Source === 'vendor'">
+          <td>{{ item?.Name }}</td>
+          <td>{{ item?.PhoneNumber }}</td>
+          <td>{{ item?.Email }}</td>
+          <td>{{ item?.Source }}</td>
+
+          <td>
+            <button
+              (click)="VendorDetail(item)"
+              style="font-size: 12px; border: 1px solid #9ad4f8"
+              mat-raised-button
+            >
+              <i class="bi bi-eye"></i>
+              <span style="font-size: 10px; font-weight: 500">
+                View Detail</span
+              >
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</mat-card>
+
+<!-- //All Expension Panels for vendor -->
+<div *ngIf="showVendorExpensionPanels == true && source == '1'">
+  <app-expansion-panel></app-expansion-panel>
+</div>
+
+<mat-card
+  class="TableCard"
+  *ngIf="isTableLoading == false"
+  style="margin-top: 15px"
+>
+  <table
+    *ngIf="source == '2' || source == '3'"
+    class="patient table table-response"
+  >
+    <thead>
+      <tr>
+        <th>Patient</th>
+        <th>Phone number</th>
+        <th>Email</th>
+        <th>Source</th>
+
+        <th><i class="bi bi-gear"></i></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let item of SearchRecordList">
+        <tr *ngIf="item?.Source === 'patient'">
+          <td>{{ item?.Name }}</td>
+          <td>{{ item?.PhoneNumber }}</td>
+          <td>{{ item?.Email }}</td>
+          <td>{{ item?.Source }}</td>
+          <td>
+            <button
+              (click)="PatientDetail(item)"
+              style="font-size: 12px; border: 1px solid #88fe8e"
+              mat-raised-button
+            >
+              <i class="bi bi-eye"></i>
+              <span style="font-size: 10px; font-weight: 500">
+                View Detail</span
+              >
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</mat-card>
+
+<!-- //All Expension Panels for patient -->
+<div *ngIf="showPatientExpensionPanels == true && source == '2'">
+  <app-expansion-panel-patient></app-expansion-panel-patient>
+</div>
+
+<p-toast></p-toast>

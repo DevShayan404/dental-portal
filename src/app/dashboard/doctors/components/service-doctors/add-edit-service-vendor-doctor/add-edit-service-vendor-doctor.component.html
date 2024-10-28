@@ -1,0 +1,23 @@
+<div class="modal_section">
+    <form [formGroup]="vendorDoctorForm" (ngSubmit)="createvendorDoctorForm()">
+        <div class="modal_inner_section">
+            <div class="input_text_field">
+                <div class="p-input-icon-left">
+                    <i class="fas fa-graduation-cap" style="color: #6c7689;"></i>
+                    <input placeholder="Enter Degree Name" type="text" pInputText formControlName="Name" />
+                </div>
+            </div>
+
+            <div class="input__btn">
+                <button [disabled]="vendorDoctorForm.invalid" class="btn btn_icon">
+                    <i [class]="isUserUpdateBtn ?  'bx bx-edit-alt': 'bx bx-pencil'"></i>
+                    {{isUserUpdateBtn ? 'Update' : 'Create' }}
+                </button>
+            </div>
+
+        </div>
+        
+    </form>
+
+</div>
+<p-toast></p-toast>

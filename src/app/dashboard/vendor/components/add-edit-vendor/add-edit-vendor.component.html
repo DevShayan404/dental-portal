@@ -1,0 +1,5 @@
+<p-steps class="step__form" *ngIf="!isUpdateHospital" [model]="items" [readonly]="true"[activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
+<div class="add__hospital">
+<router-outlet></router-outlet>
+</div>
+<p-toast></p-toast>

@@ -1,0 +1,135 @@
+<div class="card mb-5">
+    <div class="card-header d-flex justify-content-between align-items-center" style="padding: 6px 25px;">
+        <h4>Patient Detail</h4>
+        <!-- <button mat-raised-button (click)="AddNew(0)"  ><i class="bi bi-plus-circle"></i> Add New</button> -->
+    </div>
+    <div style="min-height: 400px; max-height: 600px; overflow-y: scroll">
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-6">
+                    <div>
+                        <ng-select [loading]="!CitiesList" [clearable]="false"  (change)="changeCity($event)" [ngClass]="'custom-placeholder'"  [placeholder]="'Select City'">
+                            <ng-option  *ngFor="let City of CitiesList" [value]="City.Id">{{City.Name}}</ng-option>
+                         </ng-select>
+                    </div>
+                </div>
+        
+                  <div  class="col-6">
+                    <div>
+                        <ng-select [loading]="!vendorsListByCity" [readonly]="!vendorsListByCity" (change)="changeVendor($event)"  [clearable]="false"   [ngClass]="'custom-placeholder'"  [placeholder]="'Select Hospital'">
+                            <ng-option  *ngFor="let vedor of vendorsListByCity" [value]="vedor.Id">{{vedor.BusinessName}}</ng-option>
+                         </ng-select>
+                    </div>
+                  </div>
+
+
+                  <div class="col-12 mt-4" >
+                    <!-- header="Expandible Table" -->
+                    <mat-card >
+               
+                        <p-table class="parentTable" rowExpandMode="single" [value]="PatientList" dataKey="PatientName" [style]="{ width: '100%' }" [scrollable]="true" scrollHeight="420px">
+                            <ng-template pTemplate="header" >
+                                <tr class="parentheader">
+                                    <th style="width: 5rem">
+                                        <span style="background-color: rgba(0, 127, 223, 1);padding: 10px;color: white;border-radius: 5px;">Rows<span style="background-color: white; color:black;padding: 0px 5px;border-radius: 5px;margin-left: 3px;">{{PatientLength}}</span></span>
+                                    </th>
+                                    <th  pSortableColumn="PatientName">Patient name <p-sortIcon  field="PatientName"></p-sortIcon></th>
+                                    <th pSortableColumn="price">Patient number <p-sortIcon field="price"></p-sortIcon></th>
+                                    <th  pSortableColumn="VisitStatus0Count">Not visited <p-sortIcon field="VisitStatus0Count"></p-sortIcon></th>
+                                    <th pSortableColumn="VisitStatus1Count">Visited <p-sortIcon field="VisitStatus1Count"></p-sortIcon></th>
+                                   
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-patient let-i="rowIndex"  let-expanded="expanded">
+                                <tr class="parentbody">
+                                    <td>
+                                        <button type="button" (click)="ResetAppointment(i)" pButton pRipple [pRowToggler]="patient" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                                    </td>
+                                    <td>{{ patient.PatientName }}</td>
+                                    <td>{{ patient.PatientNumber}}</td>
+                                    <td class="visitClass" [ngClass]="{ activeStyle: Pindex === i && Sid == 0 && ArrowIndex == Pindex}" (click)="getPatientAppointment(patient.PatientId,0,i)"> {{ patient.VisitStatus0Count }}</td>
+                                    <td class="visitClass" [ngClass]="{ activeStyle: Pindex === i && Sid == 1 && ArrowIndex == Pindex}" (click)="getPatientAppointment(patient.PatientId,1,i)" >{{ patient.VisitStatus1Count }}</td>
+                             
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="rowexpansion" let-PatientList>
+                                
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="p-3">
+                                            <mat-card style="width: 100%;">
+                                            <p-table class="childTable" [value]="appointmentDetail" dataKey="id">
+                                                <ng-template pTemplate="header">
+                                                    <tr class="childheader">
+                                                        <!-- pSortableColumn="id" -->
+                                                        <th >Hospital Name
+                                                             <!-- <p-sortIcon field="price"></p-sortIcon> -->
+                                                            </th>
+                                                        <!-- pSortableColumn="customer" -->
+                                                        <th >DoctorName
+                                                            <!-- <p-sortIcon field="customer"></p-sortIcon> -->
+                                                        </th>
+                                                        <!-- pSortableColumn="date" -->
+                                                        <th >Relation 
+                                                            <!-- <p-sortIcon field="date"></p-sortIcon> -->
+                                                        </th>
+
+                                                        <th>
+                                                            Appointment date
+                                                        </th>
+                                                        <!-- pSortableColumn="amount" -->
+                                                        <th >Status 
+                                                            <!-- <p-sortIcon field="amount"></p-sortIcon> -->
+                                                        </th>
+                                                        <th>
+                                                            VendorAdress
+                                                        </th>
+                                                        <!-- <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th> -->
+                                                        <!-- <th style="width: 4rem"></th> -->
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-data>
+                                                    <tr class="childbody">
+                                                        <td>{{ data.VendorName}}</td>
+                                                        <td>{{ data.DoctorName }}</td>
+                                                        <td>{{ data.Relation}}</td>
+                                                        <td>{{data.AppointmentDate | date}}</td>
+                                                        <td>{{ data.Status.AppointmentStatusName }}</td>
+                                                        <td>{{data.VendorAdress}}</td>
+                                                        <!-- <td>
+                                                            <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)"></p-tag>
+                                                        </td> -->
+                                                        <!-- <td><p-button type="button" icon="pi pi-plus"></p-button></td> -->
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="emptymessage">
+                                                    <tr>
+                                                        <td colspan="6">There is no data for this patient OR click on Visit or not visit</td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </mat-card>
+                                        </div>
+                                    </td>
+                                </tr>
+                       
+                            </ng-template>
+                        </p-table>
+             
+                    </mat-card>
+                    </div>
+              </div>
+
+
+
+
+              
+
+
+            </div>
+            </div>
+            </div>
+
+
+            <p-toast></p-toast>

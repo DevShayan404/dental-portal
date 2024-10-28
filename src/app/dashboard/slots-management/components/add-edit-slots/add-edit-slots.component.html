@@ -1,0 +1,162 @@
+<div class="modal_section">
+
+    <form [formGroup]="slotForm" (ngSubmit)="createslotForm()">
+        <div class="modal_inner_section">
+
+            <div class="row">
+
+                
+                    <div [hidden]="isUserUpdateBtn" class="dropdown__section" *appHasRole="adminRole">
+                        <label class="label" >Select a City *</label>
+                        <p-dropdown class="dropdown" formControlName="cityId" (onChange)="changeCityForHospitals($event.value)"
+                            [options]="CitiesList" [(ngModel)]="cityModel" optionLabel="Name" [filter]="true"
+                            filterBy="Name" placeholder="Select a City">
+                            <ng-template pTemplate="selectedItem">
+                                <div class="flex align-items-center gap-2" *ngIf="cityModel">
+                                    <div>{{ cityModel.Name }}</div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-country pTemplate="item">
+                                <div class="flex align-items-center gap-2">
+                                    <div>{{ country.Name }}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+
+                    <div [hidden]="isUserUpdateBtn" class="dropdown__section" *appHasRole="adminRole">
+                        <label class="label" >Select a Hospital *</label>
+                        <p-dropdown class="dropdown" [disabled]="enableHospitalItem" formControlName="hospitalId"
+                            (onChange)="changeHospitalForDoctor($event.value)" [options]="vendorsListByCity"
+                            placeholder="Select a Hospital" [(ngModel)]="doctorVendorModel"
+                            optionLabel="BusinessName" [filter]="true" filterBy="BusinessName">
+                            <ng-template pTemplate="selectedItem">
+                                <div class="flex align-items-center gap-2" *ngIf="doctorVendorModel">
+                                    <div>{{ doctorVendorModel.BusinessName }}</div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-hospital pTemplate="item">
+                                <div class="flex align-items-center gap-2">
+                                    <div>{{ hospital.BusinessName }}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+
+                    <div [hidden]="isUserUpdateBtn" class="dropdown__section" *appHasRole="operationRole">
+                        <label class="label" >Select a City *</label>
+                        <p-dropdown class="dropdown" formControlName="cityId" (onChange)="changeCityForHospitals($event.value)"
+                            [options]="CitiesList" [(ngModel)]="cityModel" optionLabel="Name" [filter]="true"
+                            filterBy="Name" placeholder="Select a City">
+                            <ng-template pTemplate="selectedItem">
+                                <div class="flex align-items-center gap-2" *ngIf="cityModel">
+                                    <div>{{ cityModel.Name }}</div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-country pTemplate="item">
+                                <div class="flex align-items-center gap-2">
+                                    <div>{{ country.Name }}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+
+                    <div [hidden]="isUserUpdateBtn" class="dropdown__section" *appHasRole="operationRole">
+                        <label class="label" >Select a Hospital *</label>
+                        <p-dropdown class="dropdown" [disabled]="enableHospitalItem" formControlName="hospitalId"
+                            (onChange)="changeHospitalForDoctor($event.value)" [options]="vendorsListByCity"
+                            placeholder="Select a Hospital" [(ngModel)]="doctorVendorModel"
+                            optionLabel="BusinessName" [filter]="true" filterBy="BusinessName">
+                            <ng-template pTemplate="selectedItem">
+                                <div class="flex align-items-center gap-2" *ngIf="doctorVendorModel">
+                                    <div>{{ doctorVendorModel.BusinessName }}</div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-hospital pTemplate="item">
+                                <div class="flex align-items-center gap-2">
+                                    <div>{{ hospital.BusinessName }}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+
+                <div [hidden]="isUserUpdateBtn" class="dropdown__section" >
+                    <label class="label" >Select a Doctor *</label>
+                        <p-dropdown class="dropdown"  [options]="doctorsList" placeholder="Select a Doctor" formControlName="doctorVendorId"
+                            [(ngModel)]="doctorModel" optionLabel="fullName" [filter]="true" filterBy="fullName">
+                            <ng-template pTemplate="selectedItem">
+                                <div class="flex align-items-center gap-2" *ngIf="doctorModel">
+                                    <div>{{ doctorModel.fullName }}</div>
+                                </div>
+                            </ng-template>
+                            <ng-template let-doctor pTemplate="item">
+                                <div class="flex align-items-center gap-2">
+                                    <div>{{ doctor.fullName }}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                </div>
+
+                <div class="dropdown__section">
+                    <label class="label" >Select a Day *</label>
+                    <p-dropdown class="dropdown" [options]="WeekList" optionValue="id"
+                    placeholder="Select a Day *" formControlName="dayOfWeek" optionLabel="name"></p-dropdown>
+                </div>
+
+                <div class="dropdown__section">
+                        <label class="label" >Select a Shifts *</label>
+                    <p-dropdown class="dropdown" [options]="shiftList" optionValue="Id"
+                    placeholder="Select a Shifts *" formControlName="shiftId" optionLabel="Type"></p-dropdown>
+                </div>
+
+
+                <div class="dropdown__section">
+                        <label class="label" >Select Interval Time *</label>
+                    <p-dropdown class="dropdown" [options]="IntervalList" placeholder="Select Interval Time *" 
+                        optionValue="desc" formControlName="intervalinMints" optionLabel="name"></p-dropdown>
+                </div>
+
+                <div class="calendar__section">
+                    <div class="left__time_picker">
+                        <label class="label" >Select Starting time *</label>
+                        <p-calendar class="time__picker" [showButtonBar]="true"
+                            formControlName="startTime" [timeOnly]="true" [showTime]="true"
+                            hourFormat="24"></p-calendar>
+                    </div>
+
+                    <div class="right__time_picker">
+                        <label class="label" >Select Ending time *</label>
+                        <p-calendar class="time__picker" [showButtonBar]="true"
+                            formControlName="endTime" [timeOnly]="true" [showTime]="true" hourFormat="24"></p-calendar>
+                    </div>
+                </div>
+
+                
+
+
+                <div *ngIf="!isUserUpdateBtn" class="input__btn">
+                    <button [disabled]="slotForm.invalid" class="btn btn_icon">
+                        <i class=" 'bx bx-edit-alt': 'bx bx-pencil'"></i>
+                        Create
+                    </button>
+                </div>
+
+                <div *ngIf="isUserUpdateBtn"  class="input__btn">
+                    <button class="btn btn_icon">
+                        <i class="bx bx-pencil"></i>
+                    Update
+                    </button>
+                </div>
+            </div>
+
+
+
+        </div>
+
+    </form>
+
+</div>
+<p-toast></p-toast>
+
+
+<app-loader *ngIf="isLoading"></app-loader>

@@ -1,0 +1,28 @@
+<div class="modal_section">
+
+    <form [formGroup]="provinceForm" (ngSubmit)="createprovinceForm()">
+        <div class="modal_inner_section">
+            <div class="input_text_field">
+                <div class="p-input-icon-left p-input-icon-right">
+                    <i class="fas fa-user" style="color: #6c7689;"></i>
+                    <input placeholder="Enter Province Name" type="text" pInputText formControlName="Name" />
+                <i [ngClass]="provinceForm.get('Name')?.hasError('required') ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+
+                </div>
+                <small *ngIf="provinceForm.get('Name')?.hasError('required')" id="username-help">Province Name is
+                    Required</small>
+            </div>
+
+            <div class="input__btn">
+                <button [disabled]="provinceForm.invalid" class="btn btn_icon">
+                    <i [class]="isUserUpdateBtn ?  'bx bx-edit-alt': 'bx bx-pencil'"></i>
+                    {{isUserUpdateBtn ? 'Update' : 'Create' }}
+                </button>
+            </div>
+
+        </div>
+        
+    </form>
+
+</div>
+<p-toast></p-toast>

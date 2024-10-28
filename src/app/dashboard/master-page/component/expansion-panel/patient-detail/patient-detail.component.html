@@ -1,0 +1,139 @@
+
+<div class="row justify-content-start">
+    <div class="col-lg-3 col-md-4 col-sm-12">
+        <mat-card class="cardone">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              padding: 12px 15px;
+              top: 0;
+              position: sticky;
+              z-index: 1;
+              background-color: white;
+            "
+          >
+            <div class="Infor">Patient List</div>
+            <div
+              style="
+                font-size: 13px;
+                background-color: #f1f5f8;
+                color: rgb(46, 46, 197);
+                border-radius: 10px;
+                padding: 1px 6px;
+              "
+            >
+              <i class="bi bi-person"></i
+              ><span style="margin-left: 3px; font-size: 12px">
+              {{
+                PatientListLength
+              }}
+              </span>
+            </div>
+          </div>
+          <mat-card-content class="Getmat-card-content">
+            <mat-card style="margin-top: 3px" *ngFor="let data of AllPatientList">
+              <mat-card-content class="Getmat-card-content">
+                
+                <mat-card-header class="UserCard" (click)="PatientLedger(data)">
+                  <div mat-card-avatar class="example-header-image"></div>
+                  <mat-card-title style="font-size: 12px">{{
+                    data.Name
+                  }}</mat-card-title>
+                  <mat-card-subtitle style="font-size: 10px">{{
+                    data.PhoneNumber
+                  }}</mat-card-subtitle>
+  
+                  <div style="margin-left: auto; margin-top: 0.7rem;">
+                    <i class="bi bi-chevron-right"></i>
+                  </div>
+                </mat-card-header>
+              </mat-card-content>
+            </mat-card>
+     
+  
+            <hr
+              style="
+                width: 90%;
+                margin-left: 5% !important;
+                margin-right: 5% !important;
+              "
+            />
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="col-lg-9 col-md-8 col-sm-12" >
+
+        <div class="masterImg" *ngIf="showlogo == true">
+            <img  src="assets/patientdetail.jpg" alt="">
+          </div>
+          
+          <div class="masterImg" *ngIf="isTableLoading == true && showlogo == false">
+            <app-loader2></app-loader2>
+          </div>
+
+<div *ngIf="isTableLoading == false" class="Infor" style="margin-top: 12px;">
+DETAIL INFORMATION
+</div>
+
+<div *ngIf="isTableLoading == false" class="row">
+
+<div class="col-8" >
+<div class="row bacicDetail">
+<div class="col-6">Patient name:<span>{{PatientBasicInfo?.Name}}</span></div>
+<div class="col-6">Phone number:<span>{{PatientBasicInfo?.PhoneNumber}}</span></div>
+
+</div>
+</div>
+
+<!-- <div class="col-4">
+    <mat-form-field class="dateRange" style="width: 100%;">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [formGroup]="dateRange" [rangePicker]="picker">
+        <input matStartDate formControlName="start" placeholder="Start date">
+        <input matEndDate formControlName="end" placeholder="End date">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+ 
+</div> -->
+
+<div class="col-12" >
+  <mat-card class="TableCard" *ngIf="isTableLoading == false"  style="margin-top: 15px;">
+    <table class="table table-response">
+    <thead>
+    <tr>
+        <th>Hospital name</th>
+    <th>DoctorName</th>
+    <th>Relation</th>
+    <th>Appointment date</th>
+    <th>Status</th>
+    <th>Action</th>
+    
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of PatientAppointments">
+        <td>{{item.VendorName}}</td>
+    <td>{{item?.DoctorName}}</td>
+    <td>{{item.Relation}} </td>
+    <td>{{item.AppointmentDate | date}}</td>
+    <td>{{item.Status?.AppointmentStatusName}}</td>
+    <!-- (click)="EditFee(item)" -->
+    <td> <i class="bi bi-eye"></i> </td>
+    </tr>
+    
+    </tbody>
+    
+    </table>
+    </mat-card>
+</div>
+</div>
+
+      </div>
+
+
+
+</div>

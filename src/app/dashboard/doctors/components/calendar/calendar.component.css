@@ -1,0 +1,126 @@
+.calendar::ng-deep.p-calendar {
+  position: relative;
+  display: inline-flex;
+  /* max-width: 100%; */
+  width: 1400px;
+  /* height: 650px; */
+}
+
+::ng-deep.p-datepicker-calendar tr {
+  height: 92px;
+  text-align: center;
+}
+
+::ng-deep.p-datepicker table td>span {
+  width: 110px;
+  height: 70px;
+  border-radius: 0px;
+  transition: box-shadow 0.2s;
+  border: 1px solid transparent;
+  /* background-color: orange; */
+
+}
+
+::ng-deep.p-datepicker table td>span:hover {
+  background-color: white;
+  /* background-color: orange; */
+
+}
+
+::ng-deep.p-datepicker table td.p-datepicker-today>span {
+  position: static !important;
+}
+.dropdown__section{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0px;
+}
+.calendar__div {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 100%;
+
+}
+
+.calendar__div h6 {
+  font-size: 14px;
+  font-weight: bold;
+
+}
+
+.appointment__list {
+  background-color: #007fdf;
+  border-radius: 4px;
+  position: relative;
+  padding: 5px 4px;
+  color: white;
+}
+
+.appointment__list h6 {
+  font-size: 13px;
+  font-weight: 500;
+
+}
+
+.patient-list {
+  width: 350px;
+  border: solid 1px #ccc;
+  border-radius: 5px;
+  background: #fff;
+  text-align: center;
+  padding: 10px;
+  margin: 0;
+  overflow-y: scroll;
+  height: 280px;
+  position: relative;
+}
+
+
+.patient__info {
+  border: 2px solid var(--secondary-blue-color);
+  margin: 10px 0px;
+  padding: 10px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.btn__margin {
+  margin: 0px;
+}
+
+.btn__margin:hover {
+  margin: 0px;
+}
+
+.cross_btn {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 10px 0px;
+}
+
+::ng-deep.p-datepicker table td.p-datepicker-today > span {
+  background: #e8f3ff !important;
+}
+
+::ng-deep.p-datepicker-calendar tr {
+  height: 20px;
+}
+::ng-deep.p-datepicker {
+  padding: 0px !important;
+ 
+}
+.booked__title{
+  color: var(--primary-blue-color);
+  font-weight: bold;
+  font-size: 24px;
+}
+.patient__div {
+  /* overflow-y: scroll;
+  height: 200px; */
+}

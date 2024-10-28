@@ -1,0 +1,110 @@
+<section *ngIf="!isLoading; else loading">
+    <div class="main-container" *ngIf="hospitalList">
+        <div class="container-profile">
+
+            <div class="back__icon" (click)="backtoParentPage()" pTooltip="Back to Page">
+                <i class="pi pi-angle-double-left"></i>
+            </div>
+
+            
+            <div class="user__div">
+                <h5><strong class="title">Hospital Profile</strong></h5>
+            </div>
+
+            <div class="profile__section">
+
+                <!-- <img [src]="hospitalList.ProfilePic" alt="img"> -->
+
+                <div class="profile__header">
+                    <h2><strong>{{hospitalList.BusinessName}}</strong></h2>
+                    <h4>{{hospitalList.Email}}</h4>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="profile__details">
+            <div class="container-profile personal">
+                <div class="user__div">
+                    <h5><strong class="title">Hospital Info</strong></h5>
+                </div>
+                <hr />
+                <div class="user__info__section">
+                    <h3 class="flex-left"><strong>Address 1:</strong></h3>
+                    <h3 class="flex-right">{{hospitalList.Address1}}</h3>
+                </div>
+                <hr />
+                <div class="user__info__section">
+                    <h3 class="flex-left"><strong>Address 2:</strong></h3>
+                    <h3 class="flex-right">{{hospitalList.Address2}}</h3>
+                </div>
+                <hr />
+                <div class="user__info__section">
+                    <h3 class="flex-left"><strong>Latitude:</strong></h3>
+                    <h3 class="flex-right">{{hospitalList.Lat}}</h3>
+                </div>
+                <hr />
+                <div class="user__info__section">
+                    <h3 class="flex-left"><strong>Longitude:</strong></h3>
+                    <h3 class="flex-right">{{hospitalList.Long}}</h3>
+                </div>
+                <hr />
+                <div class="user__info__section">
+                    <h3 class="flex-left"><strong>Phone Number:</strong></h3>
+                    <h3 class="flex-right">{{hospitalList.PhoneNumber}}</h3>
+                </div>
+                <hr />
+                <div class="user__info__section">
+                    <h3 class="flex-left"><strong>About Me:</strong></h3>
+                    <h3 class="flex-right">{{hospitalList.AboutMe}}</h3>
+                </div>
+
+                <div class="container-profile vendor_service" *ngIf="hospitalList?.OfficeTimings?.length > 0">
+                    <div class="user__div">
+                        <h5><strong class="title">Working Hours:</strong></h5>
+                        <div class="margin">
+                            <div>
+                                <hr />
+                                <table>
+                                    <tr class="header">
+                                        <th>Day</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                    </tr>
+                                    <tr *ngFor="let officeItem of hospitalList?.OfficeTimings index as i">
+                                        <td>{{officeItem.DayOfWeek | dayOfWeekPipe}}</td>
+                                        <!-- <td>
+                                        {{officeItem.IsStatus === 0 ? (officeItem.StartTime | date:'shortTime' +  '-' + officeItem.EndTime | date:'shortTime')
+                                         : (officeItem.StartTime | date:'shortTime' +  '-' + officeItem.EndTime | date:'shortTime') }} </td> -->
+                                        <td>{{officeItem.StartTime |
+                                            date:'shortTime'}}-{{officeItem.EndTime | date:'shortTime'}}</td>
+                                        <td [ngClass]="officeItem.IsStatus === 0 ? 'Closed' : 'Open'">{{officeItem.IsStatus === 0 ? 'Closed' : 'Open' }}</td>
+
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+
+
+<ng-template #loading>
+    <div class="not__found">
+        <img src="../../../../../assets/img/loader.gif" alt="not found" />
+        <div class="not-found__text">
+            <h1>Loading...</h1>
+        </div>
+    </div>
+</ng-template>
+
+<p-toast></p-toast>

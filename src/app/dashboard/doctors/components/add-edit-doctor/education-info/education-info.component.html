@@ -1,0 +1,75 @@
+<section [@slideInOut] *ngIf="!isLoaderLoading">
+    <div class="add_btn__section" *ngIf="!isUpdate">
+        <button class="add__btn" (click)="addItem()">
+            <i class='bx bxs-folder-plus'></i>
+            Add New Education</button>
+    </div>
+
+
+    <form  class="form__section" [formGroup]="educationInfoForm" (ngSubmit)="confirmationEducationInfo()">
+        <div class="container__section">
+            <div formArrayName="itemsArray" *ngFor="let item of getControls(); let i = index;">
+                <div [formGroupName]="i" class="experience__section">
+
+                    <div class="title__div">
+                        <div>
+                            <h5>Education Details: {{i+1}} </h5>
+                        </div>
+                        <div *ngIf="!isUpdate">
+                            <button (click)="removeEducation(i)" class="remove__btn">
+                                <i class='bx bxs-trash'></i>
+                                Remove</button>
+                        </div>
+                    </div>
+                    <div class="input_text_field">
+                        <label class="label">Select a Degree *</label>
+                        <div class="p-input-icon-left p-input-icon-right">
+                            <p-dropdown placeholder="Select a Degree" formControlName="degreeId" optionValue="Id"
+                                [options]="degreeList" optionLabel="Name"></p-dropdown>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="input_text_field">
+                        <label class="label">Select Starting Date *</label>
+                                <p-calendar view="month" dateFormat="mm/yy" [showButtonBar]="true"
+                                    [readonlyInput]="true" (onSelect)="onDateSelectStart($event)" formControlName="startDate" [showIcon]="true"></p-calendar>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="input_text_field">
+                        <label class="label">Select Ending Date *</label>
+                                <p-calendar view="month" dateFormat="mm/yy" [showButtonBar]="true"
+                                    [readonlyInput]="true" (onSelect)="onDateSelectEnd($event)" formControlName="endDate" [showIcon]="true"></p-calendar>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="m-top" *ngIf="!isUpdate">
+            <button [disabled]="educationInfoForm.invalid" class="login__btn"
+                [ngClass]="educationInfoForm.invalid ? 'disabled' : 'enabled' ">
+                <span *ngIf="isLoading" class="spinner"></span>
+                Next</button>
+        </div>
+
+
+        <div class="m-top" *ngIf="isUpdate">
+            <button [disabled]="educationInfoForm.invalid" class="login__btn"
+                [ngClass]="educationInfoForm.invalid ? 'disabled' : 'enabled' ">
+                <span *ngIf="isLoading" class="spinner"></span>
+                Update</button>
+        </div>
+    </form>
+</section>
+
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+<app-loader *ngIf="isLoaderLoading"></app-loader>

@@ -1,0 +1,49 @@
+<div class="card mb-5">
+    <div class="card-header d-flex justify-content-between ">
+        <h6>All Orders</h6>
+        <form>
+                      <div class="input-group">
+                          <input type="text" class="form-control bg-light border-1 small" placeholder="Search for..."
+                              aria-label="Search" aria-describedby="basic-addon2">
+                          <div class="input-group-append">
+                              <button class="btn btn-primary" type="button">
+                                  <i class="fas fa-search fa-sm"></i>
+                              </button>
+                          </div>
+                      </div>
+                  </form> 
+    </div>
+    <div style="height:400px;overflow-y:scroll">
+    <div class="card-body">
+        <table class="table mt-4">
+            <thead class="thead-light">
+              <tr>
+                <th>No</th>
+                <th>Order No</th>
+                <th>Customer ID</th>
+                <th>Order Details</th>
+                <th>Delivery Address</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Bill</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr class="TextboxDiv" *ngFor="let items of [1,2,3,4,5,6,7,8]; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>MBPK123</td>
+                    <td>Mus12</td>
+                    <td>2 Pepsi, 500ml <hr/> 3 Large Pizzas</td>
+                    <td>A-108, Gulistan-e-Jauhar</td>
+                    <td>21-Jan-2022</td>
+                    <td>Delivered</td>
+                    <td>7000.00</td>
+                    
+                </tr>
+            </tbody>
+            </table>
+    </div>
+</div>
+
+
+</div>

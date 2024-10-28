@@ -1,0 +1,250 @@
+
+<div class="back__icon" *appHasRole="hospitalRole" (click)="backtoParentPage()" pTooltip="Back to Page">
+    <i class="pi pi-angle-double-left"></i>
+</div>
+
+<form [formGroup]="personalInfoForm" (ngSubmit)="confirmationPersonalInfo()">
+
+
+    <!-- <div class="avatar-upload">
+        <div class="avatar-edit">
+            <input type='file' id="imageUpload" (change)="onUpload($event)" accept=".png, .jpg, .jpeg" />
+            <label for="imageUpload"></label>
+        </div>
+        <div class="avatar-preview">
+            <div
+            [style]="hospitalIcon ?? hospitalIcon"
+            id="imagePreview">
+            </div>
+        </div>
+    </div> -->
+
+    <div class="row" *appHasRole="adminRole">
+        <div class="col">
+            <div class="input_text_field">
+                <label class="label">Select a City *</label>
+                <p-dropdown class="slot__dropdown" (onChange)="changeCityForHospitals($event.value)"
+                    formControlName="cityId" [options]="CitiesList" [(ngModel)]="cityModel" optionLabel="Name"
+                    [filter]="true" filterBy="Name" placeholder="Select a City">
+                    <ng-template pTemplate="selectedItem">
+                        <div class="flex align-items-center gap-2" *ngIf="cityModel">
+                            <div>{{ cityModel.Name }}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-country pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            <div>{{ country.Name }}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+
+        </div>
+
+        <div class="col">
+            <div class="input_text_field">
+                <label class="label">Select a Hospital *</label>
+                <p-dropdown class="slot__dropdown" [disabled]="enableHospitalItem" formControlName="hospitalId"
+                    [options]="vendorsListByCity" placeholder="Select a Hospital" [(ngModel)]="hospitalModel"
+                    optionLabel="BusinessName" [filter]="true" filterBy="BusinessName">
+                    <ng-template pTemplate="selectedItem">
+                        <div class="flex align-items-center gap-2" *ngIf="hospitalModel">
+                            <div>{{ hospitalModel.BusinessName }}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-hospital pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            <div>{{ hospital.BusinessName }}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div class="row" *appHasRole="operationRole">
+        <div class="col">
+            <div class="input_text_field">
+                <label class="label">Select a City *</label>
+                <p-dropdown class="slot__dropdown" (onChange)="changeCityForHospitals($event.value)"
+                    formControlName="cityId" [options]="CitiesList" [(ngModel)]="cityModel" optionLabel="Name"
+                    [filter]="true" filterBy="Name" placeholder="Select a City">
+                    <ng-template pTemplate="selectedItem">
+                        <div class="flex align-items-center gap-2" *ngIf="cityModel">
+                            <div>{{ cityModel.Name }}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-country pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            <div>{{ country.Name }}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="input_text_field">
+                <label class="label">Select a Hospital *</label>
+                <p-dropdown class="slot__dropdown" [disabled]="enableHospitalItem" formControlName="hospitalId"
+                    [options]="vendorsListByCity" placeholder="Select a Hospital" [(ngModel)]="hospitalModel"
+                    optionLabel="BusinessName" [filter]="true" filterBy="BusinessName">
+                    <ng-template pTemplate="selectedItem">
+                        <div class="flex align-items-center gap-2" *ngIf="hospitalModel">
+                            <div>{{ hospitalModel.BusinessName }}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-hospital pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                            <div>{{ hospital.BusinessName }}</div>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+
+        <div class="col">
+            <div class="input_text_field">
+                <label class="label">Select a Initial Name *</label>
+                <div class="p-input-icon-left p-input-icon-right">
+                    <p-dropdown placeholder="Select a Initial Name *" [(ngModel)]="selectedInitNameModel"
+                        formControlName="initialName" [options]="initialNameArray" optionValue="initialName"
+                        optionLabel="initialName"></p-dropdown>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="input_text_field">
+                <label class="label">Enter First Name *</label>
+                <div class="p-input-icon-left p-input-icon-right">
+                    <i class="bx bx-user" style="color: #6c7689;"></i>
+                    <input type="text" pInputText formControlName="firstName" />
+                    <i [ngClass]="validateControls('firstName', 'required') ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col">
+            <div class="input_text_field">
+                <label class="label">Enter Last Name *</label>
+                <div class="p-input-icon-left p-input-icon-right">
+                    <i class="bx bx-user" style="color: #6c7689;"></i>
+                    <input type="text" pInputText formControlName="lastName" />
+                    <i [ngClass]="validateControls('lastName', 'required')? 'fas fa-asterisk' : 'fas fa-check'"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="input_text_field">
+                <label class="label">Enter Fees *</label>
+                <div class="p-input-icon-left p-input-icon-right">
+                    <i class='bx bxs-badge-dollar ' style="color: #6c7689;"></i>
+                    <input type="text" pInputText formControlName="fees" />
+                    <i
+                        [ngClass]="validateControls('fees', 'required') || validateControls('fees', 'pattern') ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col">
+            <div class="input_text_field">
+                <label class="label">Enter Cell Phone Number *</label>
+                <div class="p-input-icon-left p-input-icon-right">
+                    <i class="bx bx-phone-call" style="color: #6c7689;"></i>
+                    <p-inputMask mask="(999) 999-9999" formControlName="number"></p-inputMask>
+                    <i [ngClass]="validateControls('number', 'required') ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="input_text_field">
+                <label class="label">Select a Gender *</label>
+                <div class="p-input-icon-left p-input-icon-right">
+                    <p-dropdown placeholder="Select a Gender *" formControlName="gender" [options]="genderArray"
+                        [(ngModel)]="selectedGenderModel" optionValue="name" optionLabel="name"></p-dropdown>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="input_text_field">
+                <label class="label">Enter Cell Phone Number *</label>
+                <div class="p-input-icon-left p-input-icon-right">
+                    <i class="bx bx-phone-call" style="color: #6c7689;"></i>
+                    <p-inputMask mask="(999) 999-9999" formControlName="contact1"></p-inputMask>
+                    <i [ngClass]="validateControls('contact1', 'required') ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="input_text_field">
+                <label class="label">Enter Landline Number</label>
+                <div class="p-input-icon-left p-input-icon-right">
+                    <i class="bx bx-phone-call" style="color: #6c7689;"></i>
+                    <p-inputMask mask="(999) 999-9999" formControlName="contact2"></p-inputMask>
+                    <i [ngClass]="validateControls('contact2', 'required') ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="input_text_field">
+        <label class="label">Enter Email *</label>
+        <div class="p-input-icon-left p-input-icon-right">
+            <i class="bx bx-mail-send" style="color: #6c7689;"></i>
+            <input type="text" pInputText formControlName="email" />
+            <i [ngClass]="validateControls('email', 'required') ||
+            validateControls('email', 'email') ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+        </div>
+        <small *ngIf=" validateControls('email', 'email')" id="username-help">Email
+            Pattern
+            Required</small>
+    </div>
+
+    <div class="m-top" *ngIf="!isUpdate">
+        <button [disabled]="personalInfoForm.invalid" class="login__btn"
+            [ngClass]="personalInfoForm.invalid ? 'disabled' : 'enabled' ">
+            <span *ngIf="isLoading" class="spinner"></span>
+            Next</button>
+    </div>
+
+    <div class="m-top" *ngIf="isUpdate">
+        <button [disabled]="personalInfoForm.invalid" class="login__btn"
+            [ngClass]="personalInfoForm.invalid ? 'disabled' : 'enabled' ">
+            <span *ngIf="isLoading" class="spinner"></span>
+            Update</button>
+    </div>
+</form>
+
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+
+<app-loader *ngIf="isLoaderLoading"></app-loader>

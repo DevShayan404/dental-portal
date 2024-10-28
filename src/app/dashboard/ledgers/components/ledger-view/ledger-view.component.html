@@ -1,0 +1,90 @@
+<!-- <mat-card-title class="child-card-title">
+    <div >
+        <p-dropdown class="slot__dropdown" (onChange)="changeCity($event.value)" [options]="CitiesList" [(ngModel)]="selectedCities"  [filter]="true" filterBy="Name" [showClear]="true" placeholder="Select by Appointment">
+            <ng-template pTemplate="selectedItem">
+                <div class="flex align-items-center gap-2" *ngIf="selectedCities">
+                    <div>{{ selectedCities.Name }}</div>
+                </div>
+            </ng-template>
+            <ng-template let-country pTemplate="item">
+                <div class="flex align-items-center gap-2">
+                    <div>{{ country.Name }}</div>
+                </div>
+            </ng-template>
+        </p-dropdown>
+    </div>
+</mat-card-title>
+<mat-card-content style="margin-top: 20px;">
+   
+    <div class="row rowDiv" >
+        <div class="col-12" style="color: black"><strong>Basic Information</strong></div>
+
+        <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="inputLabelMain">
+<label class="BasicInfo-label">City Name</label>
+<div class="border-bottom-input" style="text-align: center;">{{FinalLedgerReport.CityName }}$</div>
+
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="inputLabelMain">
+<label class="BasicInfo-label">Hospitsal Name</label>
+<div class="border-bottom-input" style="text-align: center;">{{FinalLedgerReport.VendorName }}$</div>
+      
+</div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="inputLabelMain">
+<label class="BasicInfo-label">Appointment</label>
+<div class="border-bottom-input" style="text-align: center;">{{FinalLedgerReport.Appointment | date}}$</div>
+
+            </div>
+        </div>
+   
+        <div class="col-12" style="margin-top: 30px;color: black;"><strong>Basic Fee</strong></div>
+
+        <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="inputLabelMain">
+<label class="BasicInfo-label">Initial Fees</label>
+<div class="border-bottom-input" style="text-align: center;">{{FinalLedgerReport.InitialFees}}$</div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="inputLabelMain">
+<label class="BasicInfo-label"  style="font-size: 14px;">Final Ledger Amount</label>
+<div class="border-bottom-input" style="text-align: center;">{{FinalLedgerReport.FinalLedgerAmount}}</div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="inputLabelMain">
+<label class="BasicInfo-label" style="font-size: 14px;">Patient Final Fees</label>
+<div class="border-bottom-input" style="text-align: center;">{{FinalLedgerReport.PatientFinalFees}}</div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="inputLabelMain">
+<label class="BasicInfo-label"  style="font-size: 14px;">Percent Of Amount</label>
+<div class="border-bottom-input" style="text-align: center;">{{FinalLedgerReport.PercentOfAmount}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12" style="margin-top: 30px;color: black;"><strong>Hospital Precent</strong></div>
+        <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="inputLabelMain">
+        <label class="BasicInfo-label" style="font-size: 14px;">Amount</label>
+        <input readonly type="text" style="text-align: center;" formControlName="Amount" id="custom-input" class="border-bottom-input" >
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="inputLabelMain">
+        <label class="BasicInfo-label"  style="font-size: 14px;">Percentage</label>
+        <input readonly style="text-align: center;" type="text" formControlName="Percentage" id="custom-input" class="border-bottom-input" >
+            </div>
+        </div>
+                        </div>
+
+
+</mat-card-content> -->

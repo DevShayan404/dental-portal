@@ -1,0 +1,57 @@
+<div class="modal_section">
+
+    <form [formGroup]="userForm" (ngSubmit)="createUserForm()">
+        <div class="modal_inner_section">
+
+
+            <div class="input_text_field">
+                <label class="label" htmlFor="username">Enter Full Name *</label>
+                <div class="p-input-icon-left p-input-icon-right">
+                    <i class="bx bx-user" style="color: #6c7689;"></i>
+                    <input type="text" pInputText formControlName="name" />
+                    <i [ngClass]="validateControls('name', 'required') ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+                </div>
+            </div>
+
+            <div class="input_text_field">
+                <label class="label" htmlFor="username">Enter Email Address *</label>
+                <div class="p-input-icon-left p-input-icon-right">
+                    <i class="bx bx-user" style="color: #6c7689;"></i>
+                    <input type="text" pInputText formControlName="email" />
+                    <i [ngClass]="validateControls('email', 'required') ||
+            validateControls('email', 'email') ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+                    <!-- <i [ngClass]="validateControls('email', 'required') || validateControls('email', 'email') ? 'fas fa-asterisk' : 'fas fa-check'"></i> -->
+                </div>
+              
+            </div>
+
+            <div class="input_text_field">
+                <label class="label" htmlFor="username">Enter Landline Number</label>
+                <div class="p-input-icon-left p-input-icon-right">
+                    <i class="bx bx-phone-call" style="color: #6c7689;"></i>
+                    <p-inputMask mask="(999) 999-9999" formControlName="contact"></p-inputMask>
+                    <i [ngClass]="validateControls('contact', 'required') ? 'fas fa-asterisk' : 'fas fa-check'"></i>
+                </div>
+
+            </div>
+
+
+
+            <div class="input__btn">
+                <button [disabled]="userForm.invalid" class="btn btn_icon">
+                    <i [class]="isUserUpdateBtn ?  'bx bx-edit-alt': 'bx bx-pencil'"></i>
+                    {{isUserUpdateBtn ? 'Update' : 'Create' }}
+                </button>
+            </div>
+        </div>
+
+
+
+
+    </form>
+
+</div>
+<p-toast></p-toast>
+
+
+<app-loader *ngIf="isLoading"></app-loader>

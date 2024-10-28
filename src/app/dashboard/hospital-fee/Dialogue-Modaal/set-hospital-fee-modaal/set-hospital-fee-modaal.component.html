@@ -1,0 +1,56 @@
+<div mat-dialog-title class="title" >
+    {{inputdata.title}}
+<div ><i [mat-dialog-close]="closemessage" class="bi bi-x-lg"></i></div>
+</div>
+<div mat-dialog-content class="MainContent">
+    <form [formGroup]="SetFeeForm">
+        <div class="row">
+        
+
+
+          <div *ngIf="disbaleDropdownAtEdit" class="col-6 colSet">
+            <div>
+                <label for="exampleFormControlInput1" class="form-label">Select City*</label>
+                <ng-select [loading]="!CitiesList" [clearable]="false"  (change)="changeCity($event)" [ngClass]="'custom-placeholder'"  [placeholder]="'Select City'">
+                    <ng-option  *ngFor="let City of CitiesList" [value]="City.Id">{{City.Name}}</ng-option>
+                 </ng-select>
+            </div>
+         
+        </div>
+
+          <div *ngIf="disbaleDropdownAtEdit"  class="col-6 colSet">
+            <div>
+                <label for="exampleFormControlInput1" class="form-label">Select Hospital*</label>
+                <ng-select [loading]="!vendorsListByCity" [readonly]="!vendorsListByCity"  [clearable]="false"  formControlName="vendorId" [ngClass]="'custom-placeholder'"  [placeholder]="'Select Hospital'">
+                    <ng-option  *ngFor="let vedor of vendorsListByCity" [value]="vedor.Id">{{vedor.BusinessName}}</ng-option>
+                 </ng-select>
+            </div>
+          </div>
+
+          <div class="col-12 colSet">
+            <div>
+                <label for="exampleFormControlInput1" class="form-label">Select Fee type*</label>
+                <ng-select [loading]="!FeeType"  [clearable]="false"  formControlName="feesTypeId" [ngClass]="'custom-placeholder'"  [placeholder]="'Select Fee Type'">
+                    <ng-option  *ngFor="let fee of FeeType" [value]="fee.Id">{{fee.Type}}</ng-option>
+                 </ng-select>
+            </div>
+        
+          </div>
+
+          
+          <div class="col-12 mb-3 colSet">
+            <div>
+                <label for="exampleFormControlInput1" class="form-label">Enter Fee*</label>
+                <input formControlName="amount" type="number" number class="form-control" id="exampleFormControlInput1" placeholder="Enter fee">
+            </div>
+           
+          </div>
+    </div>
+</form>
+
+</div>
+<div mat-dialog-actions align="end">
+<!-- <button [mat-dialog-close]="closemessage" mat-raised-button>close</button> -->
+<button [disabled]="!SetFeeForm.valid" style="width: 100%;" (click)="savedata()" mat-raised-button>{{ModalBtn}}</button>
+
+</div>

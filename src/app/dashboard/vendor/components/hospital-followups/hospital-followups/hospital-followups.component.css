@@ -1,0 +1,116 @@
+.filters{
+    /* flex: 1; */
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      /* justify-content: space-around; */
+      /* width: 100%; */
+  }
+  .slot__dropdown::ng-deep.p-dropdown {
+    /* width: 100%!important; */
+    width: 100%;
+    height: 45px;
+  
+  }
+
+
+  .main{
+    border: 1px solid rgb(219, 219, 219);
+    border-radius: 3px;
+    height: 400px;
+    padding: 10px;
+    overflow: auto;
+    display: flex;
+    gap: 5px;
+    flex-direction:column;
+}
+
+.remarksBox{
+    /* border: 1px solid rgb(169, 165, 165); */
+   height: auto;  
+   padding: 8px 15px;
+}
+
+.avatarset{
+    display: flex;
+    align-items: end;
+    font-weight: 500;
+    font-size: 15px;
+}
+.avatar {
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+.RemarkHeader{
+    display: flex;
+    justify-content: space-between;
+}
+.RemarkContent{
+    /* border: 1px solid; */
+    flex: 1;
+    padding: 10px;
+    margin: 0 10px;
+    font-size: 10px;
+    line-height: 14px;
+}
+
+.remarksMain i{
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.remarksMain i:hover{
+    color: purple;
+}
+
+
+.ShowRemarkButton{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+.toolbox{
+    padding: 10px;
+}
+
+input[type=file] {
+    width: 250px;
+    max-width: 100%;
+    color: #444;
+    padding: 5px;
+    background: #f3f3f3;
+    /* border-radius: 10px; */
+    border-bottom: 1px solid #9d9c9c;
+  }
+
+  .remarksMain{
+display: flex;
+  }
+  .downloadIcon{
+    font-size: 20px;
+    align-self: center;
+  }
+  .downloadIcon:hover{
+    color: purple;
+    cursor: pointer;
+  }
+
+  /* .form-field{
+    height: 40px !important;
+
+  } */
+  /* mat-form-field mat-select{
+    font-size: 12px;
+  }
+
+  ::ng-deep mat-form-field {
+    height: 37px;
+  }
+
+  ::ng-deep .mat-mdc-form-field-infix{
+    padding-top: 7px!important;
+  }
+   */

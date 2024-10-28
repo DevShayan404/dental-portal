@@ -1,0 +1,75 @@
+
+
+
+    
+
+<div style="min-height: 300px;max-height: 350px;">
+
+ <div class="row">
+<div class="col-12">
+        <div class="tab-container">
+            <button class="tab tab--1" [ngClass]="{ 'tab--1 ~ indicator': TSindex === 1 }" (click)="feeType(1)">Fee type
+                <span *ngIf="TSindex === 1 && isTableLoading == true" class="spinner-grow spinnerclass"  role="status" aria-hidden="true"></span>
+            </button>
+            <button class="tab tab--2" [ngClass]="{ 'tab--2 ~ indicator ': TSindex === 2 }" (click)="feeSlab(2)">
+                Fee slab
+                <span *ngIf="TSindex === 2 && isTableLoading == true" class="spinner-grow spinnerclass"  role="status" aria-hidden="true"></span>
+            </button>
+        <div class="indicator"></div>
+    </div>
+      </div>
+
+
+    <div class="col-12">
+        <div class="masterImg" *ngIf="isTableLoading == true">
+            <app-loader2></app-loader2>
+            </div>
+          <mat-card class="TableCard" *ngIf="isTableLoading == false && toggleStatus == 1"  style="margin-top: 15px;">
+            <table class="table table-response">
+            <thead>
+            <tr>
+              <th>Hospital name</th>
+              <th>Amount</th>
+              <th>Percentage</th>
+              <th>Calculated amount</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of FinancialCostList">
+              <td>{{item.BusinessName}}</td>
+              <td>{{item?.Amount | currency}}</td>
+              <td>{{item.Percentage | percent}} </td>
+              <td>{{item.CalculatedPercentageAmount| currency}}</td>
+              </tr>
+            </tbody>
+            
+            </table>
+            </mat-card>
+
+            <mat-card class="TableCard" *ngIf="isTableLoading == false && toggleStatus == 2"  style="margin-top: 15px;">
+                <table class="table table-response">
+                <thead>
+                <tr>
+                  <th>Hospital name</th>
+                  <th>Email</th>
+                  <th>Fee type</th>
+                  <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of FinancialCostList">
+                  <td>{{item.BusinessName}}</td>
+                  <td>{{item.Email}} </td>
+                  <td>{{item.Type}}</td>
+                  <td>{{item?.Amount | currency}}</td>
+                  
+                 
+                  </tr>
+                </tbody>
+                
+                </table>
+                </mat-card>
+      
+      </div>
+    </div>
+</div>
